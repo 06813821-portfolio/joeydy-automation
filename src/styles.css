@@ -191,42 +191,8 @@
   html { scroll-behavior: auto; }
 }
 
-.flow-diagram {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
-  align-items: center;
-  gap: clamp(0.45rem, 2vw, 1.25rem);
-}
-
-.flow-node {
-  display: grid;
-  min-height: 4.1rem;
-  place-items: center;
-  border: 1px solid var(--color-primary);
-  padding: 0.5rem;
-  text-align: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.flow-node-featured {
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
-}
-
-.flow-arrow {
-  width: 1.5rem;
-  color: var(--color-accent-foreground);
-}
-
-.flow-arrow svg { display: block; width: 100%; }
-
 @media (max-width: 38rem) {
   .site-wrap { width: min(100% - 2rem, 86rem); }
-  .flow-diagram { gap: 0.4rem; }
-  .flow-node { min-height: 3.75rem; overflow-wrap: anywhere; }
-  .flow-arrow { width: 1rem; }
 }
 
 @media (min-width: 48rem) {

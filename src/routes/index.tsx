@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowDown, ArrowDownRight, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import automationDesk from "@/assets/joey-automation-studio.jpg";
 import anchorPointLanding from "@/assets/anchorpoint-landing-page.webp";
@@ -367,7 +367,7 @@ function Index() {
               className="w-fit rounded-none px-6 py-6 text-sm font-bold uppercase"
               variant="secondary"
             >
-              <a href="mailto:dyknightmare19@gmail.com">
+              <a href="mailto:dyknightmare19@gmail.com?subject=Free%20Discovery%20Call">
                 Book a Free Discovery Call <ArrowUpRight aria-hidden="true" />
               </a>
             </Button>
