@@ -2,6 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import automationDesk from "@/assets/joey-automation-studio.jpg";
+import anchorPointLanding from "@/assets/anchorpoint-landing-page.webp";
+import anchorPointNurture from "@/assets/anchorpoint-nurture-flow.webp";
+import rentalBooking from "@/assets/rental-booking-workflow.webp";
+import rentalPayment from "@/assets/rental-payment-workflow.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -56,27 +60,42 @@ const services = [
   },
 ];
 
-const concepts = [
+const projects = [
   {
     number: "01",
-    title: "Lead capture, with a clear next step.",
+    title: "AnchorPoint Rentals & Upkeep",
+    category: "Landing page · Lead capture",
     description:
-      "A sample funnel flow pairing a responsive landing page with a form, instant follow-up, and a CRM handoff.",
-    flow: ["Landing page", "Lead form", "Follow-up"],
+      "A maintenance-plan lead magnet landing page built to explain the offer clearly and turn property-owner interest into new leads.",
+    image: anchorPointLanding,
+    imageAlt: "AnchorPoint Rentals maintenance-plan landing page with property photography and a lead-generation offer",
   },
   {
     number: "02",
-    title: "From enquiry to booked call.",
+    title: "Lead magnet nurture",
+    category: "Email · CRM automation",
     description:
-      "A sample booking sequence connecting a new enquiry to a calendar, timely reminders, and a tidy opportunity pipeline.",
-    flow: ["New enquiry", "Book a call", "Reminder"],
+      "A multi-day follow-up sequence that welcomes new leads, sends helpful nurture emails, and branches based on booking activity.",
+    image: anchorPointNurture,
+    imageAlt: "AnchorPoint automated lead nurture workflow with timed emails and booking follow-up branches",
   },
   {
     number: "03",
-    title: "Nurture that stays in sync.",
+    title: "Rental strategy call booking",
+    category: "Appointment · Workflow",
     description:
-      "A sample nurture flow bringing email and SMS together with a payment step and clear CRM status updates.",
-    flow: ["Welcome", "Nurture", "Payment"],
+      "An appointment workflow that records new strategy-call bookings and applies a dedicated tag for a clean CRM handoff.",
+    image: rentalBooking,
+    imageAlt: "GoHighLevel workflow for booked rental strategy calls and CRM tagging",
+  },
+  {
+    number: "04",
+    title: "Rental maintenance payment",
+    category: "Payments · Customer onboarding",
+    description:
+      "A successful-payment flow that sends a confirmation and welcome email, then updates the customer record with a member tag.",
+    image: rentalPayment,
+    imageAlt: "GoHighLevel payment workflow with confirmation email and new-member tag",
   },
 ];
 
@@ -138,7 +157,7 @@ function Index() {
             </div>
             <Button asChild className="w-fit rounded-none px-6 py-6 text-sm font-bold uppercase">
               <a href="#contact">
-                Let’s talk <ArrowDownRight aria-hidden="true" />
+                Book a Free Discovery Call <ArrowDownRight aria-hidden="true" />
               </a>
             </Button>
           </div>
@@ -230,47 +249,34 @@ function Index() {
               </h2>
             </div>
             <p className="max-w-sm text-sm leading-relaxed md:text-base">
-              A few concept builds inspired by the landing pages, workflows, and integrations in my
-              toolkit.
+              A lead-generation landing page and connected GoHighLevel workflows for AnchorPoint Rentals & Upkeep.
             </p>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-3">
-            {concepts.map((concept) => (
+          <div className="grid gap-6 lg:grid-cols-2">
+            {projects.map((project) => (
               <article
-                className="flex h-full flex-col border-2 border-secondary-foreground bg-background text-foreground"
-                key={concept.number}
+                className="flex h-full min-w-0 flex-col border-2 border-secondary-foreground bg-background text-foreground"
+                key={project.number}
               >
-                <div
-                  aria-label={`${concept.flow.join(" to ")} sample workflow`}
-                  className="flow-diagram min-h-36 bg-muted px-4 py-8 sm:min-h-40 sm:px-5"
-                  role="img"
-                >
-                  {concept.flow.map((step, index) => (
-                    <div className="contents" key={step}>
-                      <div
-                        className={`flow-node ${index === 1 ? "flow-node-featured" : "bg-background"}`}
-                      >
-                        {step}
-                      </div>
-                      {index < concept.flow.length - 1 && (
-                        <span aria-hidden="true" className="flow-arrow">
-                          <ArrowRight />
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                <img
+                  alt={project.imageAlt}
+                  className="aspect-[16/9] w-full border-b-2 border-secondary-foreground bg-muted object-cover object-top"
+                  height={796}
+                  loading="lazy"
+                  src={project.image}
+                  width={1500}
+                />
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <p className="section-kicker mb-3 text-accent-foreground">
-                    Concept build <span className="px-1 text-muted-foreground">/</span>{" "}
-                    {concept.number}
+                    Project <span className="px-1 text-muted-foreground">/</span> {project.number}
                   </p>
                   <h3 className="display-type text-2xl font-semibold leading-tight">
-                    {concept.title}
+                    {project.title}
                   </h3>
+                  <p className="section-kicker mt-3 text-muted-foreground">{project.category}</p>
                   <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">
-                    {concept.description}
+                    {project.description}
                   </p>
                 </div>
               </article>
@@ -339,30 +345,6 @@ function Index() {
       </section>
 
       <section
-        aria-labelledby="testimonial-title"
-        className="anchor-offset bg-accent text-accent-foreground"
-        id="testimonial"
-      >
-        <div className="site-wrap grid gap-7 py-14 md:grid-cols-[0.7fr_1.3fr] md:items-center md:py-20">
-          <div>
-            <p className="section-kicker mb-4">Kind words</p>
-            <h2 className="display-type text-4xl font-semibold md:text-5xl" id="testimonial-title">
-              Client testimonial
-            </h2>
-          </div>
-          <div className="border-l-2 border-accent-foreground/40 pl-5 md:pl-8">
-            <p className="display-type text-3xl font-semibold md:text-4xl">
-              A good system deserves a good word.
-            </p>
-            <p className="mt-4 max-w-xl leading-relaxed">
-              Joey’s portfolio is growing. A client-approved testimonial can be added here when one
-              is ready to share.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section
         aria-labelledby="contact-title"
         className="anchor-offset bg-primary text-primary-foreground"
         id="contact"
@@ -386,7 +368,7 @@ function Index() {
               variant="secondary"
             >
               <a href="mailto:dyknightmare19@gmail.com">
-                Email Joey <ArrowUpRight aria-hidden="true" />
+                Book a Free Discovery Call <ArrowUpRight aria-hidden="true" />
               </a>
             </Button>
           </div>
