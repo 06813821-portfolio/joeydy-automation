@@ -60,6 +60,8 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+export const calendlyUrl = "https://calendly.com/dyknightmare19/30min";
+
 const services = [
   {
     number: "01",
@@ -436,7 +438,7 @@ function ProjectGallery({ project }: { project: Project }) {
   );
 }
 
-function Index() {
+export function Index() {
   return (
     <main>
       <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
@@ -493,7 +495,7 @@ function Index() {
               </p>
             </div>
             <Button asChild className="w-fit rounded-none px-6 py-6 text-sm font-bold uppercase">
-              <a href="#contact">
+              <a href={calendlyUrl} rel="noopener noreferrer" target="_blank">
                 Book a Free Discovery Call <ArrowDownRight aria-hidden="true" />
               </a>
             </Button>
@@ -697,7 +699,7 @@ function Index() {
               className="w-fit rounded-none px-6 py-6 text-sm font-bold uppercase"
               variant="secondary"
             >
-              <a href="mailto:dyknightmare19@gmail.com?subject=Free%20Discovery%20Call">
+              <a href={calendlyUrl} rel="noopener noreferrer" target="_blank">
                 Book a Free Discovery Call <ArrowUpRight aria-hidden="true" />
               </a>
             </Button>
