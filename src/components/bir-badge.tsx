@@ -15,7 +15,7 @@ export function BirBadge() {
       <figure className="mx-auto flex flex-col items-center">
         <Button
           variant="ghost"
-          className="block h-auto w-[clamp(120px,15vw,180px)] rounded-none border border-primary-foreground/20 bg-primary-foreground/5 p-1.5 transition-colors hover:border-secondary hover:bg-primary-foreground/10"
+          className="block h-auto w-[clamp(132px,14vw,180px)] rounded-none border border-primary-foreground/20 bg-primary-foreground/5 p-1.5 transition-colors hover:border-secondary hover:bg-primary-foreground/10"
           aria-label="Open BIR registration badge full screen"
           title="Open full-screen badge"
           onClick={() => setOpen(true)}
