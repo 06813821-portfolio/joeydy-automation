@@ -188,7 +188,7 @@ function ProjectGallery({ project }: { project: Project }) {
       <div className="relative border-b-2 border-secondary-foreground bg-muted">
         <div
           aria-label={`${project.title} screenshots`}
-          className="scrollbar-none flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="scrollbar-none flex snap-x snap-mandatory touch-pan-x overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           onScroll={syncCurrentSlide}
           onKeyDown={(event) => {
             if (event.key === "ArrowLeft") {
