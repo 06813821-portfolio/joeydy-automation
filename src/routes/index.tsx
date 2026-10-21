@@ -60,7 +60,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-export const calendlyUrl = "https://calendly.com/dyknightmare19/30min";
+export const calendlyUrl = "https://calendly.com/joeydy-automation/30min";
 
 const services = [
   {

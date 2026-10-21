@@ -7,7 +7,7 @@ import { calendlyUrl, Index } from "@/routes/index";
 // in a new tab, so the portfolio page they were reading stays open.
 describe("Book a Free Discovery Call buttons", () => {
   it("opens the Calendly booking page in a new tab from the hero and the contact section", () => {
-    expect(calendlyUrl).toBe("https://calendly.com/dyknightmare19/30min");
+    expect(calendlyUrl).toBe("https://calendly.com/joeydy-automation/30min");
 
     const { container } = render(<Index />);
 
