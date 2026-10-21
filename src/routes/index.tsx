@@ -161,14 +161,17 @@ function ProjectGallery({ project }: { project: Project }) {
 
   // On a tall phone a fit-to-width workflow screenshot is too small to read, so the lightbox
   // opens already zoomed enough to fill the screen height instead of the width.
-  React.useEffect(() => {
-    if (!lightboxOpen) return;
+  const fitLightboxToViewport = () => {
     const lightbox = lightboxRef.current;
     if (!lightbox) return;
     const { clientWidth, clientHeight } = lightbox;
     if (clientWidth === 0 || clientHeight <= clientWidth) return;
     const needed = (clientHeight * screenshotAspect) / clientWidth;
     setZoom(zoomLevels.find((level) => level >= needed) ?? maxZoom);
+  };
+
+  React.useEffect(() => {
+    if (lightboxOpen) fitLightboxToViewport();
   }, [lightboxOpen, lightboxSlide]);
 
   const moveCarousel = (index: number) => {
@@ -324,7 +327,10 @@ function ProjectGallery({ project }: { project: Project }) {
           if (!open) setZoom(1);
         }}
       >
-        <DialogContent className="flex h-[100dvh] max-w-none flex-col gap-3 overflow-hidden rounded-none border-0 bg-background p-4 sm:p-6">
+        <DialogContent
+          className="flex h-[100dvh] max-w-none flex-col gap-3 overflow-hidden rounded-none border-0 bg-background p-4 sm:p-6"
+          onOpenAutoFocus={fitLightboxToViewport}
+        >
           <div className="flex min-w-0 items-center justify-between gap-4 pr-8">
             <DialogTitle className="display-type truncate text-lg font-semibold sm:text-xl">
               {project.title}
