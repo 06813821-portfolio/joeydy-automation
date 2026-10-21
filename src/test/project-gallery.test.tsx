@@ -25,4 +25,23 @@ describe("Project showcase screenshots", () => {
       }
     }
   });
+
+  // Each card heading is client-specified copy: title first, subtitle of services underneath.
+  it("shows the service-focused title and subtitle on every project card", () => {
+    expect(projects.map((project) => [project.title, project.category])).toEqual([
+      ["Lead Generation Funnel", "Landing Page • Lead Capture • Conversion Optimization"],
+      [
+        "Email Nurture & Lead Follow-Up Automation",
+        "Email Marketing • Lead Nurturing • Customer Engagement",
+      ],
+      [
+        "Booking & Appointment Automation System",
+        "Calendar Integration • Automated Reminders • Lead Qualification",
+      ],
+      [
+        "Automated Payment & Customer Onboarding Workflow",
+        "Payment Processing • Customer Journey • Workflow Automation",
+      ],
+    ]);
+  });
 });
