@@ -1,11 +1,52 @@
+import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowDownRight, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowDownRight,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Expand,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import automationDesk from "@/assets/joey-automation-studio.jpg";
-import anchorPointLanding from "@/assets/anchorpoint-landing-page.webp";
-import anchorPointNurture from "@/assets/anchorpoint-nurture-flow.webp";
+import landingShot1 from "@/assets/project-showcase/anchorpoint-landing-01.png.asset.json";
+import landingShot2 from "@/assets/project-showcase/anchorpoint-landing-02.png.asset.json";
+import landingShot3 from "@/assets/project-showcase/anchorpoint-landing-03.png.asset.json";
+import landingShot4 from "@/assets/project-showcase/anchorpoint-landing-04.png.asset.json";
+import landingShot5 from "@/assets/project-showcase/anchorpoint-landing-05.png.asset.json";
+import landingShot6 from "@/assets/project-showcase/anchorpoint-landing-06.png.asset.json";
+import landingShot7 from "@/assets/project-showcase/anchorpoint-landing-07.png.asset.json";
+import landingShot8 from "@/assets/project-showcase/anchorpoint-landing-08.png.asset.json";
+import nurtureShot1 from "@/assets/project-showcase/lead-nurture-01.png.asset.json";
+import nurtureShot2 from "@/assets/project-showcase/lead-nurture-02.png.asset.json";
+import nurtureShot3 from "@/assets/project-showcase/lead-nurture-03.png.asset.json";
+import nurtureShot4 from "@/assets/project-showcase/lead-nurture-04.png.asset.json";
+import nurtureShot5 from "@/assets/project-showcase/lead-nurture-05.png.asset.json";
+import nurtureShot6 from "@/assets/project-showcase/lead-nurture-06.png.asset.json";
 import rentalBooking from "@/assets/rental-booking-workflow.webp";
 import rentalPayment from "@/assets/rental-payment-workflow.webp";
+import bookingDetail1 from "@/assets/project-showcase/booking-actions.png.asset.json";
+import bookingDetail2 from "@/assets/project-showcase/booking-finish.png.asset.json";
+import paymentDetail1 from "@/assets/project-showcase/payment-actions.png.asset.json";
+import paymentDetail2 from "@/assets/project-showcase/payment-finish.png.asset.json";
+import bookingOverview from "@/assets/project-showcase/booking-overview.png.asset.json";
+import paymentOverview from "@/assets/project-showcase/payment-overview.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -67,8 +108,16 @@ const projects = [
     category: "Landing page · Lead capture",
     description:
       "A maintenance-plan lead magnet landing page built to explain the offer clearly and turn property-owner interest into new leads.",
-    image: anchorPointLanding,
-    imageAlt: "AnchorPoint Rentals maintenance-plan landing page with property photography and a lead-generation offer",
+    images: [
+      { src: landingShot1.url, alt: "AnchorPoint maintenance-plan landing page hero" },
+      { src: landingShot2.url, alt: "Maintenance plan service benefits section" },
+      { src: landingShot3.url, alt: "Maintenance plan customer testimonials section" },
+      { src: landingShot4.url, alt: "Second customer testimonial and property image" },
+      { src: landingShot5.url, alt: "Maintenance plan offer and call to action" },
+      { src: landingShot6.url, alt: "Offer recap and footer section" },
+      { src: landingShot7.url, alt: "Maintenance plan sign-up form" },
+      { src: landingShot8.url, alt: "Maintenance plan thank-you page" },
+    ],
   },
   {
     number: "02",
@@ -76,8 +125,14 @@ const projects = [
     category: "Email · CRM automation",
     description:
       "A multi-day follow-up sequence that welcomes new leads, sends helpful nurture emails, and branches based on booking activity.",
-    image: anchorPointNurture,
-    imageAlt: "AnchorPoint automated lead nurture workflow with timed emails and booking follow-up branches",
+    images: [
+      { src: nurtureShot1.url, alt: "Lead nurture workflow from form submission to first follow-up" },
+      { src: nurtureShot2.url, alt: "Lead nurture workflow with timed email follow-ups" },
+      { src: nurtureShot3.url, alt: "Lead nurture sequence with day-six email and wait steps" },
+      { src: nurtureShot4.url, alt: "Lead nurture sequence with booking-condition branches" },
+      { src: nurtureShot5.url, alt: "Lead nurture workflow with re-engagement follow-up" },
+      { src: nurtureShot6.url, alt: "Final nurture email and booking-condition steps" },
+    ],
   },
   {
     number: "03",
@@ -85,8 +140,11 @@ const projects = [
     category: "Appointment · Workflow",
     description:
       "An appointment workflow that records new strategy-call bookings and applies a dedicated tag for a clean CRM handoff.",
-    image: rentalBooking,
-    imageAlt: "GoHighLevel workflow for booked rental strategy calls and CRM tagging",
+    images: [
+      { src: bookingOverview.url, alt: "Rental strategy call booking workflow overview" },
+      { src: bookingDetail1.url, alt: "Rental strategy call booking workflow action detail" },
+      { src: bookingDetail2.url, alt: "Rental strategy call workflow tag and completion detail" },
+    ],
   },
   {
     number: "04",
@@ -94,10 +152,156 @@ const projects = [
     category: "Payments · Customer onboarding",
     description:
       "A successful-payment flow that sends a confirmation and welcome email, then updates the customer record with a member tag.",
-    image: rentalPayment,
-    imageAlt: "GoHighLevel payment workflow with confirmation email and new-member tag",
+    images: [
+      { src: paymentOverview.url, alt: "Rental maintenance payment workflow overview" },
+      { src: paymentDetail1.url, alt: "Payment confirmation and welcome email workflow detail" },
+      { src: paymentDetail2.url, alt: "New member tag and payment workflow completion detail" },
+    ],
   },
 ];
+
+type Project = (typeof projects)[number];
+
+function ProjectGallery({ project }: { project: Project }) {
+  const [carouselApi, setCarouselApi] = React.useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [lightboxOpen, setLightboxOpen] = React.useState(false);
+  const [lightboxSlide, setLightboxSlide] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!carouselApi) return;
+    const syncSlide = () => setCurrentSlide(carouselApi.selectedScrollSnap());
+    syncSlide();
+    carouselApi.on("select", syncSlide);
+    return () => {
+      carouselApi.off("select", syncSlide);
+    };
+  }, [carouselApi]);
+
+  const openLightbox = (slide: number) => {
+    setLightboxSlide(slide);
+    setLightboxOpen(true);
+  };
+  const moveLightbox = (direction: -1 | 1) => {
+    setLightboxSlide((slide) => (slide + direction + project.images.length) % project.images.length);
+  };
+  const selectedImage = project.images[lightboxSlide];
+
+  return (
+    <>
+      <div className="relative border-b-2 border-secondary-foreground bg-muted">
+        <Carousel
+          className="group"
+          opts={{ loop: true }}
+          setApi={setCarouselApi}
+          aria-label={`${project.title} screenshots`}
+        >
+          <CarouselContent className="ml-0">
+            {project.images.map((image, index) => (
+              <CarouselItem className="basis-full pl-0" key={image.src}>
+                <Button
+                  aria-label={`Enlarge screenshot ${index + 1} of ${project.images.length}: ${image.alt}`}
+                  className="group/image relative block h-auto w-full overflow-hidden rounded-none border-0 p-0 text-left shadow-none hover:bg-transparent"
+                  onClick={() => openLightbox(index)}
+                  title="Open larger image"
+                  variant="ghost"
+                >
+                  <img
+                    alt={image.alt}
+                    className="aspect-video w-full bg-muted object-contain"
+                    height={796}
+                    loading="lazy"
+                    src={image.src}
+                    width={1500}
+                  />
+                  <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
+                    <Expand aria-hidden="true" className="size-4" />
+                  </span>
+                </Button>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <Button
+            aria-label={`Previous ${project.title} screenshot`}
+            className="absolute top-1/2 left-3 hidden size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
+            onClick={() => carouselApi?.scrollPrev()}
+            title="Previous screenshot"
+            variant="outline"
+          >
+            <ArrowLeft aria-hidden="true" />
+          </Button>
+          <Button
+            aria-label={`Next ${project.title} screenshot`}
+            className="absolute top-1/2 right-3 hidden size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
+            onClick={() => carouselApi?.scrollNext()}
+            title="Next screenshot"
+            variant="outline"
+          >
+            <ArrowRight aria-hidden="true" />
+          </Button>
+        </Carousel>
+        <div
+          aria-label={`Screenshot ${currentSlide + 1} of ${project.images.length}`}
+          className="flex min-h-12 items-center justify-center gap-2 px-4 py-3"
+          role="group"
+        >
+          {project.images.map((image, index) => (
+            <Button
+              aria-current={currentSlide === index ? "true" : undefined}
+              aria-label={`Show screenshot ${index + 1} of ${project.title}`}
+              className={`size-3 min-h-0 min-w-0 rounded-full p-0 shadow-none ${currentSlide === index ? "bg-accent hover:bg-accent" : "bg-muted-foreground/40 hover:bg-muted-foreground/70"}`}
+              key={image.src}
+              onClick={() => carouselApi?.scrollTo(index)}
+              variant="ghost"
+            />
+          ))}
+          <span className="sr-only" aria-live="polite">
+            Screenshot {currentSlide + 1} of {project.images.length}
+          </span>
+        </div>
+      </div>
+
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent className="w-[calc(100%-2rem)] max-w-6xl gap-3 border-2 border-foreground bg-background p-4 sm:p-6">
+          <div className="flex min-w-0 items-center justify-between gap-12 pr-8">
+            <DialogTitle className="display-type truncate text-lg font-semibold sm:text-xl">
+              {project.title}
+            </DialogTitle>
+            <span className="shrink-0 text-sm font-semibold text-muted-foreground">
+              {lightboxSlide + 1} / {project.images.length}
+            </span>
+          </div>
+          <DialogDescription className="sr-only">
+            Enlarged project screenshot. Use the previous and next buttons to browse the images.
+          </DialogDescription>
+          <div className="relative bg-muted">
+            <img
+              alt={selectedImage?.alt ?? project.title}
+              className="aspect-video max-h-[70vh] w-full bg-muted object-contain"
+              src={selectedImage?.src}
+            />
+            <Button
+              aria-label="Previous enlarged screenshot"
+              className="absolute top-1/2 left-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
+              onClick={() => moveLightbox(-1)}
+              variant="outline"
+            >
+              <ArrowLeft aria-hidden="true" />
+            </Button>
+            <Button
+              aria-label="Next enlarged screenshot"
+              className="absolute top-1/2 right-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
+              onClick={() => moveLightbox(1)}
+              variant="outline"
+            >
+              <ArrowRight aria-hidden="true" />
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
 
 function Index() {
   return (
