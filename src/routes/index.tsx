@@ -13,12 +13,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -161,20 +155,24 @@ const projects = [
 type Project = (typeof projects)[number];
 
 function ProjectGallery({ project }: { project: Project }) {
-  const [carouselApi, setCarouselApi] = React.useState<CarouselApi>();
+  const carouselRef = React.useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const [lightboxSlide, setLightboxSlide] = React.useState(0);
 
-  React.useEffect(() => {
-    if (!carouselApi) return;
-    const syncSlide = () => setCurrentSlide(carouselApi.selectedScrollSnap());
-    syncSlide();
-    carouselApi.on("select", syncSlide);
-    return () => {
-      carouselApi.off("select", syncSlide);
-    };
-  }, [carouselApi]);
+  const moveCarousel = (index: number) => {
+    const carousel = carouselRef.current;
+    if (carousel) carousel.scrollTo({ left: index * carousel.clientWidth, behavior: "smooth" });
+  };
+  const moveCarouselBy = (direction: -1 | 1) => {
+    moveCarousel((currentSlide + direction + project.images.length) % project.images.length);
+  };
+  const syncCurrentSlide = (event: React.UIEvent<HTMLDivElement>) => {
+    const carousel = event.currentTarget;
+    if (carousel.clientWidth === 0) return;
+    const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
+    setCurrentSlide(Math.min(index, project.images.length - 1));
+  };
 
   const openLightbox = (slide: number) => {
     setLightboxSlide(slide);
@@ -188,41 +186,52 @@ function ProjectGallery({ project }: { project: Project }) {
   return (
     <>
       <div className="relative border-b-2 border-secondary-foreground bg-muted">
-        <Carousel
-          className="group"
-          opts={{ loop: true }}
-          setApi={setCarouselApi}
+        <div
           aria-label={`${project.title} screenshots`}
+          className="scrollbar-none flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          onScroll={syncCurrentSlide}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              moveCarouselBy(-1);
+            }
+            if (event.key === "ArrowRight") {
+              event.preventDefault();
+              moveCarouselBy(1);
+            }
+          }}
+          ref={carouselRef}
+          role="region"
+          tabIndex={0}
         >
-          <CarouselContent className="ml-0">
-            {project.images.map((image, index) => (
-              <CarouselItem className="basis-full pl-0" key={image.src}>
-                <Button
-                  aria-label={`Enlarge screenshot ${index + 1} of ${project.images.length}: ${image.alt}`}
-                  className="group/image relative block h-auto w-full overflow-hidden rounded-none border-0 p-0 text-left shadow-none hover:bg-transparent"
-                  onClick={() => openLightbox(index)}
-                  title="Open larger image"
-                  variant="ghost"
-                >
-                  <img
-                    alt={image.alt}
-                    className="aspect-video w-full bg-muted object-contain"
-                    height={796}
-                    loading="lazy"
-                    src={image.src}
-                    width={1500}
-                  />
-                  <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
-                    <Expand aria-hidden="true" className="size-4" />
-                  </span>
-                </Button>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
+          {project.images.map((image, index) => (
+            <Button
+              aria-label={`Enlarge screenshot ${index + 1} of ${project.images.length}: ${image.alt}`}
+              className="group/image relative h-auto min-w-full snap-start snap-always overflow-hidden rounded-none border-0 p-0 text-left shadow-none hover:bg-transparent"
+              key={image.src}
+              onClick={() => openLightbox(index)}
+              title="Open larger image"
+              variant="ghost"
+            >
+              <img
+                alt={image.alt}
+                className="aspect-video w-full bg-muted object-contain"
+                height={796}
+                loading="lazy"
+                src={image.src}
+                width={1500}
+              />
+              <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
+                <Expand aria-hidden="true" className="size-4" />
+              </span>
+            </Button>
+          ))}
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 right-3 left-3 flex items-center justify-between">
           <Button
             aria-label={`Previous ${project.title} screenshot`}
-            className="absolute top-1/2 left-3 hidden size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
-            onClick={() => carouselApi?.scrollPrev()}
+            className="pointer-events-auto hidden size-11 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
+            onClick={() => moveCarouselBy(-1)}
             title="Previous screenshot"
             variant="outline"
           >
@@ -230,14 +239,14 @@ function ProjectGallery({ project }: { project: Project }) {
           </Button>
           <Button
             aria-label={`Next ${project.title} screenshot`}
-            className="absolute top-1/2 right-3 hidden size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
-            onClick={() => carouselApi?.scrollNext()}
+            className="pointer-events-auto hidden size-11 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
+            onClick={() => moveCarouselBy(1)}
             title="Next screenshot"
             variant="outline"
           >
             <ArrowRight aria-hidden="true" />
           </Button>
-        </Carousel>
+        </div>
         <div
           aria-label={`Screenshot ${currentSlide + 1} of ${project.images.length}`}
           className="flex min-h-12 items-center justify-center gap-2 px-4 py-3"
@@ -249,7 +258,7 @@ function ProjectGallery({ project }: { project: Project }) {
               aria-label={`Show screenshot ${index + 1} of ${project.title}`}
               className={`size-3 min-h-0 min-w-0 rounded-full p-0 shadow-none ${currentSlide === index ? "bg-accent hover:bg-accent" : "bg-muted-foreground/40 hover:bg-muted-foreground/70"}`}
               key={image.src}
-              onClick={() => carouselApi?.scrollTo(index)}
+              onClick={() => moveCarousel(index)}
               variant="ghost"
             />
           ))}
