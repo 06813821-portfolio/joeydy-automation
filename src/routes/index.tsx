@@ -682,7 +682,7 @@ export function Index() {
         className="anchor-offset bg-primary text-primary-foreground"
         id="contact"
       >
-        <div className="site-wrap py-16 md:py-24">
+        <div className="site-wrap pt-16 pb-10 md:pt-24 md:pb-12">
           <p className="section-kicker mb-4 text-secondary">Get in touch</p>
           <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
             <div>
