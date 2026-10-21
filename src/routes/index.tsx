@@ -144,7 +144,9 @@ export const projects = [
 
 type Project = (typeof projects)[number];
 
-const zoomLevels = [1, 1.5, 2, 3];
+const minZoom = 1;
+const maxZoom = 3;
+const zoomLevels = [minZoom, 1.5, 2, maxZoom] as const;
 const screenshotAspect = 1500 / 796;
 
 function ProjectGallery({ project }: { project: Project }) {
@@ -196,12 +198,12 @@ function ProjectGallery({ project }: { project: Project }) {
     setZoom((level) => {
       const index = Math.max(zoomLevels.indexOf(level), 0);
       const next = Math.min(Math.max(index + direction, 0), zoomLevels.length - 1);
-      return zoomLevels[next];
+      return zoomLevels[next] ?? maxZoom;
     });
   };
 
   const selectedImage = project.images[lightboxSlide];
-  const maxZoom = zoomLevels[zoomLevels.length - 1];
+  const firstImage = project.images[0];
 
   return (
     <>
@@ -339,7 +341,7 @@ function ProjectGallery({ project }: { project: Project }) {
               <Button
                 aria-label="Zoom out"
                 className="size-9 rounded-none border-border p-0"
-                disabled={zoom <= zoomLevels[0]}
+                disabled={zoom <= minZoom}
                 onClick={() => stepZoom(-1)}
                 title="Zoom out"
                 variant="outline"
@@ -378,7 +380,7 @@ function ProjectGallery({ project }: { project: Project }) {
           >
             <div
               className={`h-full bg-muted ${
-                zoom > zoomLevels[0]
+                zoom > minZoom
                   ? "flex overflow-auto [align-items:safe_center] [justify-content:safe_center]"
                   : "overflow-hidden"
               }`}
@@ -386,10 +388,10 @@ function ProjectGallery({ project }: { project: Project }) {
             >
               <img
                 alt={selectedImage?.alt ?? project.title}
-                className={`bg-muted ${zoom > zoomLevels[0] ? "max-w-none cursor-zoom-out" : "h-full w-full cursor-zoom-in object-contain"}`}
-                onClick={() => setZoom((level) => (level > zoomLevels[0] ? 1 : 2))}
+                className={`bg-muted ${zoom > minZoom ? "max-w-none cursor-zoom-out" : "h-full w-full cursor-zoom-in object-contain"}`}
+                onClick={() => setZoom((level) => (level > minZoom ? 1 : 2))}
                 src={selectedImage?.src}
-                style={zoom > zoomLevels[0] ? { width: `${zoom * 100}%` } : undefined}
+                style={zoom > minZoom ? { width: `${zoom * 100}%` } : undefined}
               />
             </div>
             {isCarousel ? (
