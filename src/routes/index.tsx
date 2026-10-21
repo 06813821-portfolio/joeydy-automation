@@ -39,8 +39,6 @@ import nurtureShot3 from "@/assets/project-showcase/lead-nurture-03.png.asset.js
 import nurtureShot4 from "@/assets/project-showcase/lead-nurture-04.png.asset.json";
 import nurtureShot5 from "@/assets/project-showcase/lead-nurture-05.png.asset.json";
 import nurtureShot6 from "@/assets/project-showcase/lead-nurture-06.png.asset.json";
-import rentalBooking from "@/assets/rental-booking-workflow.webp";
-import rentalPayment from "@/assets/rental-payment-workflow.webp";
 import bookingDetail1 from "@/assets/project-showcase/booking-actions.png.asset.json";
 import bookingDetail2 from "@/assets/project-showcase/booking-finish.png.asset.json";
 import paymentDetail1 from "@/assets/project-showcase/payment-actions.png.asset.json";
@@ -463,14 +461,7 @@ function Index() {
                 className="flex h-full min-w-0 flex-col border-2 border-secondary-foreground bg-background text-foreground"
                 key={project.number}
               >
-                <img
-                  alt={project.imageAlt}
-                  className="aspect-[16/9] w-full border-b-2 border-secondary-foreground bg-muted object-cover object-top"
-                  height={796}
-                  loading="lazy"
-                  src={project.image}
-                  width={1500}
-                />
+                <ProjectGallery project={project} />
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <p className="section-kicker mb-3 text-accent-foreground">
                     Project <span className="px-1 text-muted-foreground">/</span> {project.number}
