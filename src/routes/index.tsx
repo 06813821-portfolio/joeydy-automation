@@ -682,7 +682,7 @@ export function Index() {
         className="anchor-offset bg-primary text-primary-foreground"
         id="contact"
       >
-        <div className="site-wrap py-16 md:py-24">
+        <div className="site-wrap pt-16 pb-10 md:pt-24 md:pb-12">
           <p className="section-kicker mb-4 text-secondary">Get in touch</p>
           <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
             <div>
@@ -721,13 +721,13 @@ export function Index() {
               +63 920 557 0146
             </a>
           </div>
+          <div className="mt-8 flex justify-center md:mt-10">
+            <BirBadge />
+          </div>
         </div>
       </section>
 
       <footer className="bg-primary text-primary-foreground">
-        <div className="site-wrap border-t border-primary-foreground/25 py-10 md:py-12">
-          <BirBadge />
-        </div>
         <div className="site-wrap flex flex-wrap items-center justify-between gap-3 border-t border-primary-foreground/25 py-5 text-sm">
           <a className="display-type font-semibold" href="#home">
             Joey Dy<span className="text-accent">.</span>
