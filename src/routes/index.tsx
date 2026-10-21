@@ -10,6 +10,8 @@ import {
   Mail,
   MapPin,
   Phone,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,10 +35,6 @@ import nurtureShot3 from "@/assets/project-showcase/lead-nurture-03.png.asset.js
 import nurtureShot4 from "@/assets/project-showcase/lead-nurture-04.png.asset.json";
 import nurtureShot5 from "@/assets/project-showcase/lead-nurture-05.png.asset.json";
 import nurtureShot6 from "@/assets/project-showcase/lead-nurture-06.png.asset.json";
-import bookingDetail1 from "@/assets/project-showcase/booking-zoom-center.png.asset.json";
-import bookingDetail2 from "@/assets/project-showcase/booking-zoom-lower.png.asset.json";
-import paymentDetail1 from "@/assets/project-showcase/payment-zoom-center.png.asset.json";
-import paymentDetail2 from "@/assets/project-showcase/payment-zoom-lower.png.asset.json";
 import bookingOverview from "@/assets/project-showcase/booking-overview.png.asset.json";
 import paymentOverview from "@/assets/project-showcase/payment-overview.png.asset.json";
 
@@ -132,11 +130,7 @@ const projects = [
     category: "Appointment · Workflow",
     description:
       "An appointment workflow that records new strategy-call bookings and applies a dedicated tag for a clean CRM handoff.",
-    images: [
-      { src: bookingOverview.url, alt: "Rental strategy call booking workflow overview" },
-      { src: bookingDetail1.url, alt: "Rental strategy call booking workflow action detail" },
-      { src: bookingDetail2.url, alt: "Rental strategy call workflow tag and completion detail" },
-    ],
+    images: [{ src: bookingOverview.url, alt: "Rental strategy call booking workflow" }],
   },
   {
     number: "04",
@@ -144,11 +138,7 @@ const projects = [
     category: "Payments · Customer onboarding",
     description:
       "A successful-payment flow that sends a confirmation and welcome email, then updates the customer record with a member tag.",
-    images: [
-      { src: paymentOverview.url, alt: "Rental maintenance payment workflow overview" },
-      { src: paymentDetail1.url, alt: "Payment confirmation and welcome email workflow detail" },
-      { src: paymentDetail2.url, alt: "New member tag and payment workflow completion detail" },
-    ],
+    images: [{ src: paymentOverview.url, alt: "Rental maintenance payment workflow" }],
   },
 ];
 
