@@ -363,7 +363,11 @@ function ProjectGallery({ project }: { project: Project }) {
             }}
           >
             <div
-              className={`h-full bg-muted ${zoom > zoomLevels[0] ? "overflow-auto" : "overflow-hidden"}`}
+              className={`h-full bg-muted ${
+                zoom > zoomLevels[0]
+                  ? "flex overflow-auto [align-items:safe_center] [justify-content:safe_center]"
+                  : "overflow-hidden"
+              }`}
             >
               <img
                 alt={selectedImage?.alt ?? project.title}
