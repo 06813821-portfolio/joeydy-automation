@@ -438,7 +438,7 @@ function ProjectGallery({ project }: { project: Project }) {
   );
 }
 
-function Index() {
+export function Index() {
   return (
     <main>
       <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
