@@ -94,8 +94,8 @@ const services = [
 export const projects = [
   {
     number: "01",
-    title: "AnchorPoint Rentals & Upkeep",
-    category: "Landing page · Lead capture",
+    title: "Lead Generation Funnel",
+    category: "Landing Page • Lead Capture • Conversion Optimization",
     description:
       "A maintenance-plan lead magnet landing page built to explain the offer clearly and turn property-owner interest into new leads.",
     images: [
@@ -111,8 +111,8 @@ export const projects = [
   },
   {
     number: "02",
-    title: "Lead magnet nurture",
-    category: "Email · CRM automation",
+    title: "Email Nurture & Lead Follow-Up Automation",
+    category: "Email Marketing • Lead Nurturing • Customer Engagement",
     description:
       "A multi-day follow-up sequence that welcomes new leads, sends helpful nurture emails, and branches based on booking activity.",
     images: [
@@ -126,16 +126,16 @@ export const projects = [
   },
   {
     number: "03",
-    title: "Rental strategy call booking",
-    category: "Appointment · Workflow",
+    title: "Booking & Appointment Automation System",
+    category: "Calendar Integration • Automated Reminders • Lead Qualification",
     description:
       "An appointment workflow that records new strategy-call bookings and applies a dedicated tag for a clean CRM handoff.",
     images: [{ src: bookingOverview.url, alt: "Rental strategy call booking workflow" }],
   },
   {
     number: "04",
-    title: "Rental maintenance payment",
-    category: "Payments · Customer onboarding",
+    title: "Automated Payment & Customer Onboarding Workflow",
+    category: "Payment Processing • Customer Journey • Workflow Automation",
     description:
       "A successful-payment flow that sends a confirmation and welcome email, then updates the customer record with a member tag.",
     images: [{ src: paymentOverview.url, alt: "Rental maintenance payment workflow" }],
