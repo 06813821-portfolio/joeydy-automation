@@ -145,15 +145,29 @@ export const projects = [
 type Project = (typeof projects)[number];
 
 const zoomLevels = [1, 1.5, 2, 3];
+const screenshotAspect = 1500 / 796;
 
 function ProjectGallery({ project }: { project: Project }) {
   const carouselRef = React.useRef<HTMLDivElement>(null);
+  const lightboxRef = React.useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const [lightboxSlide, setLightboxSlide] = React.useState(0);
   const [zoom, setZoom] = React.useState(1);
 
   const isCarousel = project.images.length > 1;
+
+  // On a tall phone a fit-to-width workflow screenshot is too small to read, so the lightbox
+  // opens already zoomed enough to fill the screen height instead of the width.
+  React.useEffect(() => {
+    if (!lightboxOpen) return;
+    const lightbox = lightboxRef.current;
+    if (!lightbox) return;
+    const { clientWidth, clientHeight } = lightbox;
+    if (clientWidth === 0 || clientHeight <= clientWidth) return;
+    const needed = (clientHeight * screenshotAspect) / clientWidth;
+    setZoom(zoomLevels.find((level) => level >= needed) ?? maxZoom);
+  }, [lightboxOpen, lightboxSlide]);
 
   const moveCarousel = (index: number) => {
     const carousel = carouselRef.current;
@@ -368,6 +382,7 @@ function ProjectGallery({ project }: { project: Project }) {
                   ? "flex overflow-auto [align-items:safe_center] [justify-content:safe_center]"
                   : "overflow-hidden"
               }`}
+              ref={lightboxRef}
             >
               <img
                 alt={selectedImage?.alt ?? project.title}
