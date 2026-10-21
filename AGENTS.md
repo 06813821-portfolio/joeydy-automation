@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep the personal portfolio as a single index page with in-page section links so visitors can scan the full body of work in one flow.
+- Keep the compliance badge in a dedicated presentation component using the original CDN asset and react-zoom-pan-pinch for lightbox gestures, so image preservation and touch zoom stay independent of project galleries.

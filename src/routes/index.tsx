@@ -14,6 +14,7 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BirBadge } from "@/components/bir-badge";
 import {
   Dialog,
   DialogContent,
@@ -724,6 +725,9 @@ export function Index() {
       </section>
 
       <footer className="bg-primary text-primary-foreground">
+        <div className="site-wrap border-t border-primary-foreground/25 py-10 md:py-12">
+          <BirBadge />
+        </div>
         <div className="site-wrap flex flex-wrap items-center justify-between gap-3 border-t border-primary-foreground/25 py-5 text-sm">
           <a className="display-type font-semibold" href="#home">
             Joey Dy<span className="text-accent">.</span>
