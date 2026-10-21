@@ -250,27 +250,27 @@ function ProjectGallery({ project }: { project: Project }) {
               </Button>
             ))}
           </div>
-        ) : (
+        ) : firstImage ? (
           <Button
-            aria-label={`Open ${project.images[0].alt} full screen with zoom`}
+            aria-label={`Open ${firstImage.alt} full screen with zoom`}
             className="group/image relative block h-auto w-full overflow-hidden rounded-none border-0 p-0 text-left shadow-none hover:bg-transparent"
             onClick={() => openLightbox(0)}
             title="Open full-screen image"
             variant="ghost"
           >
             <img
-              alt={project.images[0].alt}
+              alt={firstImage.alt}
               className="aspect-video w-full bg-muted object-contain"
               height={796}
               loading="lazy"
-              src={project.images[0].src}
+              src={firstImage.src}
               width={1500}
             />
             <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
               <ZoomIn aria-hidden="true" className="size-4" />
             </span>
           </Button>
-        )}
+        ) : null}
 
         {isCarousel ? (
           <>
