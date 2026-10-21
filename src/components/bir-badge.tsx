@@ -12,19 +12,19 @@ export function BirBadge() {
 
   return (
     <>
-      <figure className="mx-auto w-full max-w-[657px]">
+      <figure className="mx-auto w-[clamp(120px,15vw,180px)]">
         <Button
           variant="ghost"
-          className="block h-auto w-full rounded-none p-0 hover:bg-transparent"
+          className="block h-auto w-full rounded-none border border-primary-foreground/20 bg-primary-foreground/5 p-1.5 transition-colors hover:border-secondary hover:bg-primary-foreground/10"
           aria-label="Open BIR registration badge full screen"
           title="Open full-screen badge"
           onClick={() => setOpen(true)}
         >
           <img src={badge.url} alt="BIR Registration Seal Badge with complete registration QR code" width={657} height={364} className="block h-auto w-full" loading="lazy" />
         </Button>
-        <figcaption className="mt-4 flex flex-wrap items-center justify-center gap-2 text-center text-sm font-semibold">
+        <figcaption className="mt-2 flex items-center justify-center gap-1.5 text-center text-[11px] font-semibold leading-snug text-primary-foreground/70">
           {caption}
-          <Maximize aria-hidden="true" className="size-4 text-secondary" />
+          <Maximize aria-hidden="true" className="size-3 shrink-0 text-secondary" />
         </figcaption>
       </figure>
 
