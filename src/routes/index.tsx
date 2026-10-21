@@ -174,6 +174,15 @@ function ProjectGallery({ project }: { project: Project }) {
     if (lightboxOpen) fitLightboxToViewport();
   }, [lightboxOpen, lightboxSlide]);
 
+  // Once zoomed in, keep the middle of the screenshot in view instead of its top-left corner.
+  React.useEffect(() => {
+    if (!lightboxOpen || zoom <= minZoom) return;
+    const lightbox = lightboxRef.current;
+    if (!lightbox) return;
+    lightbox.scrollLeft = Math.max((lightbox.scrollWidth - lightbox.clientWidth) / 2, 0);
+    lightbox.scrollTop = Math.max((lightbox.scrollHeight - lightbox.clientHeight) / 2, 0);
+  }, [lightboxOpen, lightboxSlide, zoom]);
+
   const moveCarousel = (index: number) => {
     const carousel = carouselRef.current;
     if (carousel) carousel.scrollTo({ left: index * carousel.clientWidth, behavior: "smooth" });
