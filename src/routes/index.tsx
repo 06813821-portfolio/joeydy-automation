@@ -146,7 +146,7 @@ type Project = (typeof projects)[number];
 
 const minZoom = 1;
 const maxZoom = 3;
-const zoomLevels = [minZoom, 1.5, 2, maxZoom] as const;
+const zoomLevels: number[] = [minZoom, 1.5, 2, maxZoom];
 const screenshotAspect = 1500 / 796;
 
 function ProjectGallery({ project }: { project: Project }) {
