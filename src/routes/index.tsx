@@ -39,10 +39,10 @@ import nurtureShot3 from "@/assets/project-showcase/lead-nurture-03.png.asset.js
 import nurtureShot4 from "@/assets/project-showcase/lead-nurture-04.png.asset.json";
 import nurtureShot5 from "@/assets/project-showcase/lead-nurture-05.png.asset.json";
 import nurtureShot6 from "@/assets/project-showcase/lead-nurture-06.png.asset.json";
-import bookingDetail1 from "@/assets/project-showcase/booking-actions.png.asset.json";
-import bookingDetail2 from "@/assets/project-showcase/booking-finish.png.asset.json";
-import paymentDetail1 from "@/assets/project-showcase/payment-actions.png.asset.json";
-import paymentDetail2 from "@/assets/project-showcase/payment-finish.png.asset.json";
+import bookingDetail1 from "@/assets/project-showcase/booking-zoom-center.png.asset.json";
+import bookingDetail2 from "@/assets/project-showcase/booking-zoom-lower.png.asset.json";
+import paymentDetail1 from "@/assets/project-showcase/payment-zoom-center.png.asset.json";
+import paymentDetail2 from "@/assets/project-showcase/payment-zoom-lower.png.asset.json";
 import bookingOverview from "@/assets/project-showcase/booking-overview.png.asset.json";
 import paymentOverview from "@/assets/project-showcase/payment-overview.png.asset.json";
 
@@ -455,14 +455,14 @@ function Index() {
             </p>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6">
             {projects.map((project) => (
               <article
-                className="flex h-full min-w-0 flex-col border-2 border-secondary-foreground bg-background text-foreground"
+                className="grid min-w-0 border-2 border-secondary-foreground bg-background text-foreground lg:grid-cols-[1.35fr_0.65fr]"
                 key={project.number}
               >
                 <ProjectGallery project={project} />
-                <div className="flex flex-1 flex-col p-5 md:p-6">
+                <div className="flex min-w-0 flex-col justify-center p-5 md:p-6">
                   <p className="section-kicker mb-3 text-accent-foreground">
                     Project <span className="px-1 text-muted-foreground">/</span> {project.number}
                   </p>
