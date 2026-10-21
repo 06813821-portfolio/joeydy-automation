@@ -91,7 +91,7 @@ const services = [
   },
 ];
 
-const projects = [
+export const projects = [
   {
     number: "01",
     title: "AnchorPoint Rentals & Upkeep",
