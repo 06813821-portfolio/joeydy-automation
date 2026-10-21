@@ -10,6 +10,8 @@ import {
   Mail,
   MapPin,
   Phone,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,10 +35,6 @@ import nurtureShot3 from "@/assets/project-showcase/lead-nurture-03.png.asset.js
 import nurtureShot4 from "@/assets/project-showcase/lead-nurture-04.png.asset.json";
 import nurtureShot5 from "@/assets/project-showcase/lead-nurture-05.png.asset.json";
 import nurtureShot6 from "@/assets/project-showcase/lead-nurture-06.png.asset.json";
-import bookingDetail1 from "@/assets/project-showcase/booking-zoom-center.png.asset.json";
-import bookingDetail2 from "@/assets/project-showcase/booking-zoom-lower.png.asset.json";
-import paymentDetail1 from "@/assets/project-showcase/payment-zoom-center.png.asset.json";
-import paymentDetail2 from "@/assets/project-showcase/payment-zoom-lower.png.asset.json";
 import bookingOverview from "@/assets/project-showcase/booking-overview.png.asset.json";
 import paymentOverview from "@/assets/project-showcase/payment-overview.png.asset.json";
 
@@ -93,7 +91,7 @@ const services = [
   },
 ];
 
-const projects = [
+export const projects = [
   {
     number: "01",
     title: "AnchorPoint Rentals & Upkeep",
@@ -132,11 +130,7 @@ const projects = [
     category: "Appointment · Workflow",
     description:
       "An appointment workflow that records new strategy-call bookings and applies a dedicated tag for a clean CRM handoff.",
-    images: [
-      { src: bookingOverview.url, alt: "Rental strategy call booking workflow overview" },
-      { src: bookingDetail1.url, alt: "Rental strategy call booking workflow action detail" },
-      { src: bookingDetail2.url, alt: "Rental strategy call workflow tag and completion detail" },
-    ],
+    images: [{ src: bookingOverview.url, alt: "Rental strategy call booking workflow" }],
   },
   {
     number: "04",
@@ -144,21 +138,50 @@ const projects = [
     category: "Payments · Customer onboarding",
     description:
       "A successful-payment flow that sends a confirmation and welcome email, then updates the customer record with a member tag.",
-    images: [
-      { src: paymentOverview.url, alt: "Rental maintenance payment workflow overview" },
-      { src: paymentDetail1.url, alt: "Payment confirmation and welcome email workflow detail" },
-      { src: paymentDetail2.url, alt: "New member tag and payment workflow completion detail" },
-    ],
+    images: [{ src: paymentOverview.url, alt: "Rental maintenance payment workflow" }],
   },
 ];
 
 type Project = (typeof projects)[number];
 
+const minZoom = 1;
+const maxZoom = 3;
+const zoomLevels: number[] = [minZoom, 1.5, 2, maxZoom];
+const screenshotAspect = 1500 / 796;
+
 function ProjectGallery({ project }: { project: Project }) {
   const carouselRef = React.useRef<HTMLDivElement>(null);
+  const lightboxRef = React.useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const [lightboxSlide, setLightboxSlide] = React.useState(0);
+  const [zoom, setZoom] = React.useState(1);
+
+  const isCarousel = project.images.length > 1;
+
+  // On a tall phone a fit-to-width workflow screenshot is too small to read, so the lightbox
+  // opens already zoomed enough to fill the screen height instead of the width.
+  const fitLightboxToViewport = () => {
+    const lightbox = lightboxRef.current;
+    if (!lightbox) return;
+    const { clientWidth, clientHeight } = lightbox;
+    if (clientWidth === 0 || clientHeight <= clientWidth) return;
+    const needed = (clientHeight * screenshotAspect) / clientWidth;
+    setZoom(zoomLevels.find((level) => level >= needed) ?? maxZoom);
+  };
+
+  React.useEffect(() => {
+    if (lightboxOpen) fitLightboxToViewport();
+  }, [lightboxOpen, lightboxSlide]);
+
+  // Once zoomed in, keep the middle of the screenshot in view instead of its top-left corner.
+  React.useEffect(() => {
+    if (!lightboxOpen || zoom <= minZoom) return;
+    const lightbox = lightboxRef.current;
+    if (!lightbox) return;
+    lightbox.scrollLeft = Math.max((lightbox.scrollWidth - lightbox.clientWidth) / 2, 0);
+    lightbox.scrollTop = Math.max((lightbox.scrollHeight - lightbox.clientHeight) / 2, 0);
+  }, [lightboxOpen, lightboxSlide, zoom]);
 
   const moveCarousel = (index: number) => {
     const carousel = carouselRef.current;
@@ -176,133 +199,236 @@ function ProjectGallery({ project }: { project: Project }) {
 
   const openLightbox = (slide: number) => {
     setLightboxSlide(slide);
+    setZoom(1);
     setLightboxOpen(true);
   };
   const moveLightbox = (direction: -1 | 1) => {
+    setZoom(1);
     setLightboxSlide((slide) => (slide + direction + project.images.length) % project.images.length);
   };
+  const stepZoom = (direction: -1 | 1) => {
+    setZoom((level) => {
+      const index = Math.max(zoomLevels.indexOf(level), 0);
+      const next = Math.min(Math.max(index + direction, 0), zoomLevels.length - 1);
+      return zoomLevels[next] ?? maxZoom;
+    });
+  };
+
   const selectedImage = project.images[lightboxSlide];
+  const firstImage = project.images[0];
 
   return (
     <>
       <div className="relative border-b-2 border-secondary-foreground bg-muted">
-        <div
-          aria-label={`${project.title} screenshots`}
-          className="scrollbar-none flex snap-x snap-mandatory touch-pan-x overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          onScroll={syncCurrentSlide}
-          onKeyDown={(event) => {
-            if (event.key === "ArrowLeft") {
-              event.preventDefault();
-              moveCarouselBy(-1);
-            }
-            if (event.key === "ArrowRight") {
-              event.preventDefault();
-              moveCarouselBy(1);
-            }
-          }}
-          ref={carouselRef}
-          role="region"
-          tabIndex={0}
-        >
-          {project.images.map((image, index) => (
-            <Button
-              aria-label={`Enlarge screenshot ${index + 1} of ${project.images.length}: ${image.alt}`}
-              className="group/image relative h-auto min-w-full snap-start snap-always overflow-hidden rounded-none border-0 p-0 text-left shadow-none hover:bg-transparent"
-              key={image.src}
-              onClick={() => openLightbox(index)}
-              title="Open larger image"
-              variant="ghost"
-            >
-              <img
-                alt={image.alt}
-                className="aspect-video w-full bg-muted object-contain"
-                height={796}
-                loading="lazy"
-                src={image.src}
-                width={1500}
-              />
-              <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
-                <Expand aria-hidden="true" className="size-4" />
-              </span>
-            </Button>
-          ))}
-        </div>
-        <div className="pointer-events-none absolute inset-y-0 right-3 left-3 flex items-center justify-between">
-          <Button
-            aria-label={`Previous ${project.title} screenshot`}
-            className="pointer-events-auto hidden size-11 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
-            onClick={() => moveCarouselBy(-1)}
-            title="Previous screenshot"
-            variant="outline"
+        {isCarousel ? (
+          <div
+            aria-label={`${project.title} screenshots`}
+            className="scrollbar-none flex snap-x snap-mandatory touch-pan-x overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            onScroll={syncCurrentSlide}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                moveCarouselBy(-1);
+              }
+              if (event.key === "ArrowRight") {
+                event.preventDefault();
+                moveCarouselBy(1);
+              }
+            }}
+            ref={carouselRef}
+            role="region"
+            tabIndex={0}
           >
-            <ArrowLeft aria-hidden="true" />
-          </Button>
+            {project.images.map((image, index) => (
+              <Button
+                aria-label={`Enlarge screenshot ${index + 1} of ${project.images.length}: ${image.alt}`}
+                className="group/image relative h-auto min-w-full snap-start snap-always overflow-hidden rounded-none border-0 p-0 text-left shadow-none hover:bg-transparent"
+                key={image.src}
+                onClick={() => openLightbox(index)}
+                title="Open larger image"
+                variant="ghost"
+              >
+                <img
+                  alt={image.alt}
+                  className="aspect-video w-full bg-muted object-contain"
+                  height={796}
+                  loading="lazy"
+                  src={image.src}
+                  width={1500}
+                />
+                <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
+                  <Expand aria-hidden="true" className="size-4" />
+                </span>
+              </Button>
+            ))}
+          </div>
+        ) : firstImage ? (
           <Button
-            aria-label={`Next ${project.title} screenshot`}
-            className="pointer-events-auto hidden size-11 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
-            onClick={() => moveCarouselBy(1)}
-            title="Next screenshot"
-            variant="outline"
+            aria-label={`Open ${firstImage.alt} full screen with zoom`}
+            className="group/image relative block h-auto w-full overflow-hidden rounded-none border-0 p-0 text-left shadow-none hover:bg-transparent"
+            onClick={() => openLightbox(0)}
+            title="Open full-screen image"
+            variant="ghost"
           >
-            <ArrowRight aria-hidden="true" />
-          </Button>
-        </div>
-        <div
-          aria-label={`Screenshot ${currentSlide + 1} of ${project.images.length}`}
-          className="flex min-h-12 items-center justify-center gap-2 px-4 py-3"
-          role="group"
-        >
-          {project.images.map((image, index) => (
-            <Button
-              aria-current={currentSlide === index ? "true" : undefined}
-              aria-label={`Show screenshot ${index + 1} of ${project.title}`}
-              className={`size-3 min-h-0 min-w-0 rounded-full p-0 shadow-none ${currentSlide === index ? "bg-accent hover:bg-accent" : "bg-muted-foreground/40 hover:bg-muted-foreground/70"}`}
-              key={image.src}
-              onClick={() => moveCarousel(index)}
-              variant="ghost"
+            <img
+              alt={firstImage.alt}
+              className="aspect-video w-full bg-muted object-contain"
+              height={796}
+              loading="lazy"
+              src={firstImage.src}
+              width={1500}
             />
-          ))}
-          <span className="sr-only" aria-live="polite">
-            Screenshot {currentSlide + 1} of {project.images.length}
-          </span>
-        </div>
+            <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
+              <ZoomIn aria-hidden="true" className="size-4" />
+            </span>
+          </Button>
+        ) : null}
+
+        {isCarousel ? (
+          <>
+            <div className="pointer-events-none absolute inset-y-0 right-3 left-3 flex items-center justify-between">
+              <Button
+                aria-label={`Previous ${project.title} screenshot`}
+                className="pointer-events-auto hidden size-11 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
+                onClick={() => moveCarouselBy(-1)}
+                title="Previous screenshot"
+                variant="outline"
+              >
+                <ArrowLeft aria-hidden="true" />
+              </Button>
+              <Button
+                aria-label={`Next ${project.title} screenshot`}
+                className="pointer-events-auto hidden size-11 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
+                onClick={() => moveCarouselBy(1)}
+                title="Next screenshot"
+                variant="outline"
+              >
+                <ArrowRight aria-hidden="true" />
+              </Button>
+            </div>
+            <div
+              aria-label={`Screenshot ${currentSlide + 1} of ${project.images.length}`}
+              className="flex min-h-12 items-center justify-center gap-2 px-4 py-3"
+              role="group"
+            >
+              {project.images.map((image, index) => (
+                <Button
+                  aria-current={currentSlide === index ? "true" : undefined}
+                  aria-label={`Show screenshot ${index + 1} of ${project.title}`}
+                  className={`size-3 min-h-0 min-w-0 rounded-full p-0 shadow-none ${currentSlide === index ? "bg-accent hover:bg-accent" : "bg-muted-foreground/40 hover:bg-muted-foreground/70"}`}
+                  key={image.src}
+                  onClick={() => moveCarousel(index)}
+                  variant="ghost"
+                />
+              ))}
+              <span className="sr-only" aria-live="polite">
+                Screenshot {currentSlide + 1} of {project.images.length}
+              </span>
+            </div>
+          </>
+        ) : null}
       </div>
 
-      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
-        <DialogContent className="w-[calc(100%-2rem)] max-w-6xl gap-3 border-2 border-foreground bg-background p-4 sm:p-6">
-          <div className="flex min-w-0 items-center justify-between gap-12 pr-8">
+      <Dialog
+        open={lightboxOpen}
+        onOpenChange={(open) => {
+          setLightboxOpen(open);
+          if (!open) setZoom(1);
+        }}
+      >
+        <DialogContent
+          className="flex h-[100dvh] max-w-none flex-col gap-3 overflow-hidden rounded-none border-0 bg-background p-4 sm:p-6"
+          onOpenAutoFocus={fitLightboxToViewport}
+        >
+          <div className="flex min-w-0 items-center justify-between gap-4 pr-8">
             <DialogTitle className="display-type truncate text-lg font-semibold sm:text-xl">
               {project.title}
             </DialogTitle>
-            <span className="shrink-0 text-sm font-semibold text-muted-foreground">
-              {lightboxSlide + 1} / {project.images.length}
-            </span>
+            <div className="flex shrink-0 items-center gap-2">
+              {isCarousel ? (
+                <span className="text-sm font-semibold text-muted-foreground">
+                  {lightboxSlide + 1} / {project.images.length}
+                </span>
+              ) : null}
+              <span className="min-w-12 text-right text-sm font-semibold tabular-nums text-muted-foreground">
+                {Math.round(zoom * 100)}%
+              </span>
+              <Button
+                aria-label="Zoom out"
+                className="size-9 rounded-none border-border p-0"
+                disabled={zoom <= minZoom}
+                onClick={() => stepZoom(-1)}
+                title="Zoom out"
+                variant="outline"
+              >
+                <ZoomOut aria-hidden="true" className="size-4" />
+              </Button>
+              <Button
+                aria-label="Zoom in"
+                className="size-9 rounded-none border-border p-0"
+                disabled={zoom >= maxZoom}
+                onClick={() => stepZoom(1)}
+                title="Zoom in"
+                variant="outline"
+              >
+                <ZoomIn aria-hidden="true" className="size-4" />
+              </Button>
+            </div>
           </div>
           <DialogDescription className="sr-only">
-            Enlarged project screenshot. Use the previous and next buttons to browse the images.
+            Full-screen project screenshot. Click the image to zoom in or out, then scroll to move
+            around the enlarged view.
           </DialogDescription>
-          <div className="relative bg-muted">
-            <img
-              alt={selectedImage?.alt ?? project.title}
-              className="aspect-video max-h-[70vh] w-full bg-muted object-contain"
-              src={selectedImage?.src}
-            />
-            <Button
-              aria-label="Previous enlarged screenshot"
-              className="absolute top-1/2 left-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
-              onClick={() => moveLightbox(-1)}
-              variant="outline"
+          <div
+            className="relative min-h-0 flex-1"
+            onKeyDown={(event) => {
+              if (!isCarousel) return;
+              if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                moveLightbox(-1);
+              }
+              if (event.key === "ArrowRight") {
+                event.preventDefault();
+                moveLightbox(1);
+              }
+            }}
+          >
+            <div
+              className={`h-full bg-muted ${
+                zoom > minZoom
+                  ? "flex overflow-auto [align-items:safe_center] [justify-content:safe_center]"
+                  : "overflow-hidden"
+              }`}
+              ref={lightboxRef}
             >
-              <ArrowLeft aria-hidden="true" />
-            </Button>
-            <Button
-              aria-label="Next enlarged screenshot"
-              className="absolute top-1/2 right-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
-              onClick={() => moveLightbox(1)}
-              variant="outline"
-            >
-              <ArrowRight aria-hidden="true" />
-            </Button>
+              <img
+                alt={selectedImage?.alt ?? project.title}
+                className={`bg-muted ${zoom > minZoom ? "max-w-none cursor-zoom-out" : "h-full w-full cursor-zoom-in object-contain"}`}
+                onClick={() => setZoom((level) => (level > minZoom ? 1 : 2))}
+                src={selectedImage?.src}
+                style={zoom > minZoom ? { width: `${zoom * 100}%` } : undefined}
+              />
+            </div>
+            {isCarousel ? (
+              <>
+                <Button
+                  aria-label="Previous enlarged screenshot"
+                  className="absolute top-1/2 left-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
+                  onClick={() => moveLightbox(-1)}
+                  variant="outline"
+                >
+                  <ArrowLeft aria-hidden="true" />
+                </Button>
+                <Button
+                  aria-label="Next enlarged screenshot"
+                  className="absolute top-1/2 right-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
+                  onClick={() => moveLightbox(1)}
+                  variant="outline"
+                >
+                  <ArrowRight aria-hidden="true" />
+                </Button>
+              </>
+            ) : null}
           </div>
         </DialogContent>
       </Dialog>
