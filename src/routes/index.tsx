@@ -721,7 +721,7 @@ export function Index() {
               +63 920 557 0146
             </a>
           </div>
-          <div className="mt-10 flex justify-center md:mt-12">
+          <div className="mt-8 flex justify-center md:mt-10">
             <BirBadge />
           </div>
         </div>
