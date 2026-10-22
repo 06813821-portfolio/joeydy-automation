@@ -40,6 +40,7 @@ import bookingOverview from "@/assets/project-showcase/booking-overview.png.asse
 import paymentOverview from "@/assets/project-showcase/payment-overview.png.asset.json";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Joey Dy — GoHighLevel Automation Specialist" },
