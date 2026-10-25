@@ -34,7 +34,7 @@ export function BirBadge() {
         <DialogContent className="flex h-[100dvh] max-w-none flex-col gap-3 overflow-hidden rounded-none border-0 bg-background p-3 sm:rounded-none sm:gap-4 sm:p-6">
           <DialogTitle className="display-type pr-8 text-base font-semibold leading-snug sm:text-xl">{caption}</DialogTitle>
           <DialogDescription className="sr-only">Original BIR badge. Pinch or use the zoom controls to enlarge the QR code, and drag to move the image.</DialogDescription>
-          <TransformWrapper minScale={1} maxScale={maxScale} centerOnInit wheel={{ step: 0.1 }} doubleClick={{ mode: "zoom-in", step: 2 }}>
+          <TransformWrapper minScale={1} maxScale={maxScale} centerOnInit wheel={{ step: 0.1 }} doubleClick={{ mode: "zoomIn", step: 2 }}>
             {({ zoomIn, zoomOut, resetTransform, state }) => (
               <>
                 <div className="flex items-center gap-2 border-b border-border pb-2 sm:pb-3">
