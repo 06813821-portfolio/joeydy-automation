@@ -7,8 +7,11 @@ import badge from "@/assets/bir-seal-badge.png.asset.json";
 
 const caption = "BIR Registered Business - Philippines";
 
+const maxScale = 8;
+
 export function BirBadge() {
   const [open, setOpen] = useState(false);
+  const [scale, setScale] = useState(1);
 
   return (
     <>
@@ -29,20 +32,35 @@ export function BirBadge() {
       </figure>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="flex h-[100dvh] max-w-none flex-col gap-4 overflow-hidden rounded-none border-0 bg-background p-4 sm:rounded-none sm:p-6">
-          <DialogTitle className="display-type pr-8 text-lg font-semibold leading-snug sm:text-xl">{caption}</DialogTitle>
+        <DialogContent className="flex h-[100dvh] max-w-none flex-col gap-3 overflow-hidden rounded-none border-0 bg-background p-3 sm:rounded-none sm:gap-4 sm:p-6">
+          <DialogTitle className="display-type pr-8 text-base font-semibold leading-snug sm:text-xl">{caption}</DialogTitle>
           <DialogDescription className="sr-only">Original BIR badge. Pinch or use the zoom controls to enlarge the QR code, and drag to move the image.</DialogDescription>
-          <TransformWrapper minScale={1} maxScale={4} centerOnInit wheel={{ step: 0.1 }}>
-            {({ zoomIn, zoomOut, resetTransform, state }) => (
+          <TransformWrapper
+            minScale={1}
+            maxScale={maxScale}
+            centerOnInit
+            wheel={{ step: 0.1 }}
+            doubleClick={{ mode: "zoomIn", step: 2 }}
+            onTransform={(_, s) => setScale(s.scale)}
+          >
+            {({ zoomIn, zoomOut, resetTransform }) => (
               <>
-                <div className="flex items-center gap-2 border-b border-border pb-3">
-                  <Button variant="outline" size="icon" className="rounded-none" aria-label="Zoom out badge" title="Zoom out" disabled={state.scale <= 1} onClick={() => zoomOut()}><ZoomOut /></Button>
-                  <Button variant="outline" size="icon" className="rounded-none" aria-label="Zoom in badge" title="Zoom in" disabled={state.scale >= 4} onClick={() => zoomIn()}><ZoomIn /></Button>
+                <div className="flex items-center gap-2 border-b border-border pb-2 sm:pb-3">
+                  <Button variant="outline" size="icon" className="rounded-none" aria-label="Zoom out badge" title="Zoom out" disabled={scale <= 1} onClick={() => zoomOut()}><ZoomOut /></Button>
+                  <Button variant="outline" size="icon" className="rounded-none" aria-label="Zoom in badge" title="Zoom in" disabled={scale >= maxScale} onClick={() => zoomIn()}><ZoomIn /></Button>
                   <Button variant="outline" size="icon" className="rounded-none" aria-label="Reset badge zoom" title="Reset zoom" onClick={() => resetTransform()}><RotateCcw /></Button>
+                  <span className="ml-auto text-[11px] font-semibold tabular-nums text-primary-foreground/70">{Math.round(scale * 100)}%</span>
                 </div>
                 <div className="min-h-0 flex-1 overflow-hidden bg-muted">
-                  <TransformComponent wrapperClass="!h-full !w-full" contentClass="!h-full !w-full items-center justify-center">
-                    <img src={badge.url} alt="Full-size BIR registration seal and QR code" width={493} height={273} className="h-auto max-h-full w-[657px] max-w-full cursor-grab object-contain active:cursor-grabbing" draggable={false} />
+                  <TransformComponent wrapperClass="!h-full !w-full" contentClass="!h-full !w-full">
+                    <img
+                      src={badge.url}
+                      alt="Full-size BIR registration seal and QR code"
+                      width={493}
+                      height={273}
+                      className={`h-full w-full cursor-grab select-none object-contain active:cursor-grabbing ${scale > 1.5 ? "[image-rendering:pixelated]" : ""}`}
+                      draggable={false}
+                    />
                   </TransformComponent>
                 </div>
               </>
