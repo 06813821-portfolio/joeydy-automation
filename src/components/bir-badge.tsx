@@ -7,6 +7,8 @@ import badge from "@/assets/bir-seal-badge.png.asset.json";
 
 const caption = "BIR Registered Business - Philippines";
 
+const maxScale = 8;
+
 export function BirBadge() {
   const [open, setOpen] = useState(false);
 
