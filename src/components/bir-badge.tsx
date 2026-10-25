@@ -52,13 +52,14 @@ export function BirBadge() {
                   <span className="ml-auto text-[11px] font-semibold tabular-nums text-primary-foreground/70">{Math.round(scale * 100)}%</span>
                 </div>
                 <div className="min-h-0 flex-1 overflow-hidden bg-muted">
-                  <TransformComponent wrapperClass="!h-full !w-full" contentClass="!h-full !w-full">
+                  <TransformComponent wrapperClass="!h-full !w-full" contentClass="!h-full !w-full flex items-center justify-center">
                     <img
                       src={badge.url}
                       alt="Full-size BIR registration seal and QR code"
                       width={493}
                       height={273}
-                      className={`h-full w-full cursor-grab select-none object-contain active:cursor-grabbing ${scale > 1.5 ? "[image-rendering:pixelated]" : ""}`}
+                      className="block h-auto max-h-full w-auto cursor-grab select-none active:cursor-grabbing"
+                      style={{ maxWidth: "min(90vw, 493px)" }}
                       draggable={false}
                     />
                   </TransformComponent>
