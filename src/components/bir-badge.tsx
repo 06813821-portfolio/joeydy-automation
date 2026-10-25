@@ -11,6 +11,7 @@ const maxScale = 8;
 
 export function BirBadge() {
   const [open, setOpen] = useState(false);
+  const [scale, setScale] = useState(1);
 
   return (
     <>
