@@ -20,7 +20,7 @@ export function BirBadge() {
           title="Open full-screen badge"
           onClick={() => setOpen(true)}
         >
-          <img src={badge.url} alt="BIR Registration Seal Badge with complete registration QR code" width={657} height={364} className="block h-auto w-full" loading="lazy" />
+          <img src={badge.url} alt="BIR Registration Seal Badge with complete registration QR code" width={493} height={273} className="block h-auto w-full" loading="lazy" />
         </Button>
         <figcaption className="mt-2 max-w-[260px] text-center text-[11px] font-semibold leading-snug text-primary-foreground/70">
           {caption}
@@ -42,7 +42,7 @@ export function BirBadge() {
                 </div>
                 <div className="min-h-0 flex-1 overflow-hidden bg-muted">
                   <TransformComponent wrapperClass="!h-full !w-full" contentClass="!h-full !w-full items-center justify-center">
-                    <img src={badge.url} alt="Full-size BIR registration seal and QR code" width={657} height={364} className="h-auto max-h-full w-[657px] max-w-full cursor-grab object-contain active:cursor-grabbing" draggable={false} />
+                    <img src={badge.url} alt="Full-size BIR registration seal and QR code" width={493} height={273} className="h-auto max-h-full w-[657px] max-w-full cursor-grab object-contain active:cursor-grabbing" draggable={false} />
                   </TransformComponent>
                 </div>
               </>
