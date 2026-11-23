@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
+  CheckCircle2,
   Expand,
   Mail,
   MapPin,
@@ -100,6 +101,7 @@ export const projects = [
     number: "01",
     title: "Lead Generation Funnel",
     category: "Landing Page • Lead Capture • Conversion Optimization",
+    group: "funnels",
     description:
       "A maintenance-plan lead magnet landing page built to explain the offer clearly and turn property-owner interest into new leads.",
     images: [
@@ -117,6 +119,7 @@ export const projects = [
     number: "02",
     title: "Email Nurture & Lead Follow-Up Automation",
     category: "Email Marketing • Lead Nurturing • Customer Engagement",
+    group: "ghl",
     description:
       "A multi-day follow-up sequence that welcomes new leads, sends helpful nurture emails, and branches based on booking activity.",
     images: [
@@ -132,6 +135,7 @@ export const projects = [
     number: "03",
     title: "Booking & Appointment Automation System",
     category: "Calendar Integration • Automated Reminders • Lead Qualification",
+    group: "ghl",
     description:
       "An appointment workflow that records new strategy-call bookings and applies a dedicated tag for a clean CRM handoff.",
     images: [{ src: bookingOverview.url, alt: "Rental strategy call booking workflow" }],
@@ -140,6 +144,7 @@ export const projects = [
     number: "04",
     title: "Automated Payment & Customer Onboarding Workflow",
     category: "Payment Processing • Customer Journey • Workflow Automation",
+    group: "ghl",
     description:
       "A successful-payment flow that sends a confirmation and welcome email, then updates the customer record with a member tag.",
     images: [{ src: paymentOverview.url, alt: "Rental maintenance payment workflow" }],
@@ -147,6 +152,179 @@ export const projects = [
 ];
 
 type Project = (typeof projects)[number];
+
+export const projectGroups = [
+  { id: "ghl", title: "GoHighLevel Automation Projects" },
+  { id: "funnels", title: "Landing Pages & Funnels" },
+] as const;
+
+export const skillBadges = [
+  "GoHighLevel",
+  "Workflow Automation",
+  "SMS Automation",
+  "Email Automation",
+  "Calendar Setup",
+  "Snapshot Creation",
+  "Appointment Booking",
+  "Funnel Building",
+  "Reputation Management",
+];
+
+export const dentalCaseStudy = {
+  title: "Dental Clinic Appointment & Reputation Management System",
+  summary:
+    "A complete GoHighLevel implementation featuring appointment booking, automated reminders, review generation, feedback collection, workflow automation, and snapshot deployment.",
+  description:
+    "Designed and implemented a complete dental clinic automation system in GoHighLevel, including appointment booking, automated reminders, patient feedback collection, review generation, and reusable snapshot deployment.",
+  overview:
+    "Built a complete GoHighLevel automation system for a dental clinic, covering appointment booking, patient communications, reminders, feedback collection, review management, and reusable deployment through snapshots.",
+  features: [
+    "Online Appointment Booking",
+    "Calendar Scheduling",
+    "Confirmation Email Automation",
+    "Confirmation SMS Automation",
+    "24-Hour Appointment Reminder",
+    "2-Hour Appointment Reminder",
+    "Cancellation & Reschedule Workflow",
+    "No-Show Follow-up Workflow",
+    "Patient Feedback Funnel",
+    "Google Review Routing",
+    "Reputation Management System",
+    "Reusable GoHighLevel Snapshot",
+  ],
+  challenges: [
+    "Reduce manual appointment scheduling",
+    "Improve patient attendance",
+    "Automate follow-ups",
+    "Generate more reviews",
+  ],
+  solution:
+    "Implemented an end-to-end GoHighLevel system with automated patient communication and reputation management.",
+  implementation: [
+    "Landing Page Design",
+    "Calendar Setup",
+    "Booking Form",
+    "Confirmation Emails",
+    "Confirmation SMS",
+    "Reminder Workflows",
+    "Feedback Funnel",
+    "Review Routing",
+    "Snapshot Creation & Deployment",
+  ],
+  skills: [
+    "Workflow Automation",
+    "CRM Setup",
+    "Calendar Configuration",
+    "Email Automation",
+    "SMS Automation",
+    "Funnel Building",
+    "Form Building",
+    "Snapshot Creation",
+    "Reputation Management",
+    "Appointment Automation",
+  ],
+  outcome:
+    "Created a complete patient journey automation system that reduces manual follow-up, improves appointment attendance, and streamlines review collection.",
+};
+
+function DentalCaseStudy() {
+  const c = dentalCaseStudy;
+  return (
+    <article
+      aria-labelledby="dental-title"
+      className="anchor-offset border-2 border-secondary-foreground bg-background text-foreground"
+      id="dental-case-study"
+    >
+      <div className="border-b-2 border-secondary-foreground bg-primary p-6 text-primary-foreground md:p-10">
+        <p className="section-kicker mb-4 flex items-center gap-2 text-secondary">
+          <span aria-hidden="true" className="inline-block size-2.5 bg-accent" />
+          Flagship case study · GoHighLevel
+        </p>
+        <h3 className="display-type max-w-4xl text-3xl font-semibold leading-tight md:text-5xl" id="dental-title">
+          {c.title}
+        </h3>
+        <p className="mt-5 max-w-3xl leading-relaxed text-primary-foreground/75 md:text-lg">
+          {c.description}
+        </p>
+      </div>
+      <div className="grid gap-px bg-border md:grid-cols-2">
+        <div className="bg-background p-6 md:p-8">
+          <h4 className="section-kicker mb-3 text-accent-foreground">Overview</h4>
+          <p className="leading-relaxed text-muted-foreground">{c.overview}</p>
+        </div>
+        <div className="bg-background p-6 md:p-8">
+          <h4 className="section-kicker mb-3 text-accent-foreground">Challenges</h4>
+          <ul className="grid gap-2">
+            {c.challenges.map((item) => (
+              <li className="flex gap-2 leading-relaxed" key={item}>
+                <span aria-hidden="true" className="mt-2 inline-block size-2 shrink-0 bg-accent" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-background p-6 md:p-8">
+          <h4 className="section-kicker mb-3 text-accent-foreground">Solution</h4>
+          <p className="leading-relaxed text-muted-foreground">{c.solution}</p>
+          <h4 className="section-kicker mt-6 mb-3 text-accent-foreground">Implementation</h4>
+          <ol className="grid gap-2 sm:grid-cols-2">
+            {c.implementation.map((item, index) => (
+              <li className="flex gap-2 text-sm font-medium" key={item}>
+                <span className="display-type w-6 shrink-0 font-semibold text-accent">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {item}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="bg-background p-6 md:p-8">
+          <h4 className="section-kicker mb-3 text-accent-foreground">Key features</h4>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {c.features.map((item) => (
+              <li className="flex items-start gap-2 text-sm font-medium" key={item}>
+                <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-accent" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="grid gap-6 border-t-2 border-secondary-foreground p-6 md:grid-cols-[1fr_1fr] md:p-8">
+        <div>
+          <h4 className="section-kicker mb-3 text-accent-foreground">GoHighLevel skills demonstrated</h4>
+          <ul className="flex flex-wrap gap-2">
+            {c.skills.map((skill) => (
+              <li className="border border-border px-3 py-1.5 text-xs font-semibold" key={skill}>
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-secondary p-5 text-secondary-foreground">
+          <h4 className="section-kicker mb-2">Project outcome</h4>
+          <p className="font-semibold leading-relaxed">{c.outcome}</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <article className="grid min-w-0 border-2 border-secondary-foreground bg-background text-foreground lg:grid-cols-[1.35fr_0.65fr]">
+      <ProjectGallery project={project} />
+      <div className="flex min-w-0 flex-col justify-center p-5 md:p-6">
+        <p className="section-kicker mb-3 text-accent-foreground">
+          Project <span className="px-1 text-muted-foreground">/</span> {project.number}
+        </p>
+        <h3 className="display-type text-2xl font-semibold leading-tight">{project.title}</h3>
+        <p className="section-kicker mt-3 text-muted-foreground">{project.category}</p>
+        <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">{project.description}</p>
+      </div>
+    </article>
+  );
+}
 
 const minZoom = 1;
 const maxZoom = 3;
@@ -483,18 +661,28 @@ export function Index() {
             <div>
               <p className="section-kicker mb-5 flex items-center gap-2 text-accent-foreground">
                 <span aria-hidden="true" className="inline-block size-2.5 bg-accent" />
-                GoHighLevel automation specialist
+                Joey Dy · Daraga, Albay
               </p>
               <h1
-                className="display-type max-w-4xl text-6xl font-semibold leading-[0.88] md:text-8xl lg:text-9xl"
+                className="display-type max-w-5xl text-5xl font-semibold leading-[0.92] md:text-7xl lg:text-8xl"
                 id="home-title"
               >
-                Joey Dy<span className="text-accent">.</span>
+                GoHighLevel Automation Specialist<span className="text-accent">.</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                I build landing pages and simple, connected systems that help businesses capture
-                leads, follow up, and book with confidence.
+                I build automated booking systems, workflow automations, lead management processes,
+                and customer follow-up systems using GoHighLevel.
               </p>
+              <ul aria-label="Skills" className="mt-6 flex max-w-3xl flex-wrap gap-2">
+                {skillBadges.map((skill) => (
+                  <li
+                    className="border border-foreground bg-background px-3 py-1.5 text-xs font-bold uppercase tracking-wide"
+                    key={skill}
+                  >
+                    {skill}
+                  </li>
+                ))}
+              </ul>
             </div>
             <Button asChild className="w-fit rounded-none px-6 py-6 text-sm font-bold uppercase">
               <a href={calendlyUrl} rel="noopener noreferrer" target="_blank">
@@ -527,6 +715,28 @@ export function Index() {
               Explore services <ArrowDown aria-hidden="true" className="size-4" />
             </a>
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="featured-title" className="anchor-offset bg-background" id="featured">
+        <div className="site-wrap pb-16 md:pb-24">
+          <p className="section-kicker mb-4 text-accent-foreground">Featured GoHighLevel Projects</p>
+          <h2 className="sr-only" id="featured-title">Featured GoHighLevel Projects</h2>
+          <a
+            className="group grid gap-6 border-2 border-foreground bg-secondary p-6 text-secondary-foreground transition-colors hover:bg-accent md:grid-cols-[1fr_auto] md:items-center md:p-10"
+            href="#dental-case-study"
+          >
+            <div>
+              <p className="section-kicker mb-3">Flagship case study</p>
+              <h3 className="display-type text-3xl font-semibold leading-tight md:text-4xl">
+                {dentalCaseStudy.title}
+              </h3>
+              <p className="mt-4 max-w-3xl leading-relaxed">{dentalCaseStudy.summary}</p>
+            </div>
+            <span className="inline-flex items-center gap-2 text-sm font-bold uppercase">
+              View case study <ArrowDownRight aria-hidden="true" className="size-5 transition-transform group-hover:translate-x-1" />
+            </span>
+          </a>
         </div>
       </section>
 
@@ -590,30 +800,23 @@ export function Index() {
               </h2>
             </div>
             <p className="max-w-sm text-sm leading-relaxed md:text-base">
-              A lead-generation landing page and connected GoHighLevel workflows for AnchorPoint Rentals & Upkeep.
+              GoHighLevel automation systems, landing pages, and funnels — led by a full dental clinic patient-journey build.
             </p>
           </div>
 
-          <div className="grid gap-6">
-            {projects.map((project) => (
-              <article
-                className="grid min-w-0 border-2 border-secondary-foreground bg-background text-foreground lg:grid-cols-[1.35fr_0.65fr]"
-                key={project.number}
-              >
-                <ProjectGallery project={project} />
-                <div className="flex min-w-0 flex-col justify-center p-5 md:p-6">
-                  <p className="section-kicker mb-3 text-accent-foreground">
-                    Project <span className="px-1 text-muted-foreground">/</span> {project.number}
-                  </p>
-                  <h3 className="display-type text-2xl font-semibold leading-tight">
-                    {project.title}
-                  </h3>
-                  <p className="section-kicker mt-3 text-muted-foreground">{project.category}</p>
-                  <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">
-                    {project.description}
-                  </p>
-                </div>
-              </article>
+          <div className="grid gap-12">
+            {projectGroups.map((group) => (
+              <div className="grid gap-6" key={group.id}>
+                <h3 className="display-type border-b-2 border-secondary-foreground pb-3 text-2xl font-semibold md:text-3xl">
+                  {group.title}
+                </h3>
+                {group.id === "ghl" ? <DentalCaseStudy /> : null}
+                {projects
+                  .filter((project) => project.group === group.id)
+                  .map((project) => (
+                    <ProjectCard key={project.number} project={project} />
+                  ))}
+              </div>
             ))}
           </div>
         </div>
