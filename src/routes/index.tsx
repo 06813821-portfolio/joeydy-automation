@@ -22,6 +22,31 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+import dentalShot1 from "@/assets/dental/dental-01.png.asset.json";
+import dentalShot2 from "@/assets/dental/dental-02.png.asset.json";
+import dentalShot3 from "@/assets/dental/dental-03.png.asset.json";
+import dentalShot4 from "@/assets/dental/dental-04.png.asset.json";
+import dentalShot5 from "@/assets/dental/dental-05.png.asset.json";
+import dentalShot6 from "@/assets/dental/dental-06.png.asset.json";
+import dentalShot7 from "@/assets/dental/dental-07.png.asset.json";
+import dentalShot8 from "@/assets/dental/dental-08.png.asset.json";
+import dentalShot9 from "@/assets/dental/dental-09.png.asset.json";
+import dentalShot10 from "@/assets/dental/dental-10.png.asset.json";
+import dentalShot11 from "@/assets/dental/dental-11.png.asset.json";
+import dentalShot12 from "@/assets/dental/dental-12.png.asset.json";
+import dentalShot13 from "@/assets/dental/dental-13.png.asset.json";
+import dentalShot14 from "@/assets/dental/dental-14.png.asset.json";
+import dentalShot15 from "@/assets/dental/dental-15.png.asset.json";
+import dentalShot16 from "@/assets/dental/dental-16.png.asset.json";
+import dentalShot17 from "@/assets/dental/dental-17.png.asset.json";
+import dentalShot18 from "@/assets/dental/dental-18.png.asset.json";
+import dentalShot19 from "@/assets/dental/dental-19.png.asset.json";
+import dentalShot20 from "@/assets/dental/dental-20.png.asset.json";
+import dentalShot21 from "@/assets/dental/dental-21.png.asset.json";
+import dentalShot22 from "@/assets/dental/dental-22.png.asset.json";
+import dentalShot23 from "@/assets/dental/dental-23.png.asset.json";
+import dentalShot24 from "@/assets/dental/dental-24.png.asset.json";
+import dentalShot25 from "@/assets/dental/dental-25.png.asset.json";
 import automationDesk from "@/assets/joey-automation-studio.jpg";
 import landingShot1 from "@/assets/project-showcase/anchorpoint-landing-01.png.asset.json";
 import landingShot2 from "@/assets/project-showcase/anchorpoint-landing-02.png.asset.json";
@@ -171,6 +196,33 @@ export const skillBadges = [
 ];
 
 export const dentalCaseStudy = {
+  images: [
+    { src: dentalShot1.url, alt: "Bright Smile website hero with Book an Appointment button" },
+    { src: dentalShot2.url, alt: "Website hero with clinic highlights bar" },
+    { src: dentalShot3.url, alt: "Treatments overview grid" },
+    { src: dentalShot4.url, alt: "General Dentistry treatment details popup" },
+    { src: dentalShot5.url, alt: "Treatments section with Explore Treatment buttons" },
+    { src: dentalShot6.url, alt: "Dental Implants treatment details popup" },
+    { src: dentalShot7.url, alt: "Why Choose Us section with clinic video" },
+    { src: dentalShot8.url, alt: "Meet Our Dentists team section" },
+    { src: dentalShot9.url, alt: "Patient testimonials section" },
+    { src: dentalShot10.url, alt: "Closing call-to-action and footer" },
+    { src: dentalShot11.url, alt: "Booking calendar — choose a date" },
+    { src: dentalShot12.url, alt: "Booking calendar — choose a dentist" },
+    { src: dentalShot13.url, alt: "Booking form — enter patient details" },
+    { src: dentalShot14.url, alt: "Booking confirmation screen" },
+    { src: dentalShot15.url, alt: "Review funnel — rate your experience" },
+    { src: dentalShot16.url, alt: "Review funnel — happy patients sent to Google review" },
+    { src: dentalShot17.url, alt: "Review funnel — private feedback form for unhappy patients" },
+    { src: dentalShot18.url, alt: "Review funnel — thank-you message" },
+    { src: dentalShot19.url, alt: "Workflow: booking confirmation" },
+    { src: dentalShot20.url, alt: "Workflow: 24-hour appointment reminder" },
+    { src: dentalShot21.url, alt: "Workflow: 24-hour reminder branches" },
+    { src: dentalShot22.url, alt: "Workflow: 2-hour appointment reminder" },
+    { src: dentalShot23.url, alt: "Workflow: no-show recovery" },
+    { src: dentalShot24.url, alt: "Workflow: cancellation and reschedule" },
+    { src: dentalShot25.url, alt: "Workflow: reputation management funnel" },
+  ],
   title: "Dental Clinic Appointment & Reputation Management System",
   summary:
     "A complete GoHighLevel implementation featuring appointment booking, automated reminders, review generation, feedback collection, workflow automation, and snapshot deployment.",
@@ -246,6 +298,9 @@ function DentalCaseStudy() {
         <p className="mt-5 max-w-3xl leading-relaxed text-primary-foreground/75 md:text-lg">
           {c.description}
         </p>
+      </div>
+      <div className="border-b-2 border-secondary-foreground">
+        <ProjectGallery project={c} />
       </div>
       <div className="grid gap-px bg-border md:grid-cols-2">
         <div className="bg-background p-6 md:p-8">
@@ -331,7 +386,7 @@ const maxZoom = 3;
 const zoomLevels: number[] = [minZoom, 1.5, 2, maxZoom];
 const screenshotAspect = 1500 / 796;
 
-function ProjectGallery({ project }: { project: Project }) {
+function ProjectGallery({ project }: { project: Pick<Project, "title" | "images"> }) {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const lightboxRef = React.useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);

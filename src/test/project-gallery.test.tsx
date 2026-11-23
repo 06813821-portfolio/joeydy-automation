@@ -45,3 +45,10 @@ describe("Project showcase screenshots", () => {
     ]);
   });
 });
+
+describe("Dental case study gallery", () => {
+  it("shows all 25 uploaded dental screenshots", async () => {
+    const { dentalCaseStudy } = await import("@/routes/index");
+    expect(dentalCaseStudy.images.length).toBe(25);
+  });
+});
