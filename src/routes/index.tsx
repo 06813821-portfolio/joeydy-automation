@@ -639,43 +639,38 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
         }}
       >
         <DialogContent
-          className="flex h-[100dvh] max-w-none flex-col gap-3 overflow-hidden rounded-none border-0 bg-background p-4 sm:p-6"
+          className="flex h-[100dvh] max-w-none flex-col gap-3 overflow-hidden rounded-none border-0 bg-primary p-4 text-primary-foreground sm:p-6"
           onOpenAutoFocus={fitLightboxToViewport}
         >
-          <div className="flex min-w-0 items-center justify-between gap-4 pr-8">
-            <DialogTitle className="display-type truncate text-lg font-semibold sm:text-xl">
-              {project.images[lightboxSlide]?.title ?? project.title}
-            </DialogTitle>
-            <div className="flex shrink-0 items-center gap-2">
-              {isCarousel ? (
-                <span className="text-sm font-semibold text-muted-foreground">
-                  {lightboxSlide + 1} / {project.images.length}
-                </span>
-              ) : null}
-              <span className="min-w-12 text-right text-sm font-semibold tabular-nums text-muted-foreground">
-                {Math.round(zoom * 100)}%
+          <div className="flex min-w-0 items-center justify-end gap-2 pr-8">
+            {isCarousel ? (
+              <span className="text-sm font-semibold text-primary-foreground/70">
+                {lightboxSlide + 1} / {project.images.length}
               </span>
-              <Button
-                aria-label="Zoom out"
-                className="size-9 rounded-none border-border p-0"
-                disabled={zoom <= minZoom}
-                onClick={() => stepZoom(-1)}
-                title="Zoom out"
-                variant="outline"
-              >
-                <ZoomOut aria-hidden="true" className="size-4" />
-              </Button>
-              <Button
-                aria-label="Zoom in"
-                className="size-9 rounded-none border-border p-0"
-                disabled={zoom >= maxZoom}
-                onClick={() => stepZoom(1)}
-                title="Zoom in"
-                variant="outline"
-              >
-                <ZoomIn aria-hidden="true" className="size-4" />
-              </Button>
-            </div>
+            ) : null}
+            <span className="min-w-12 text-right text-sm font-semibold tabular-nums text-primary-foreground/70">
+              {Math.round(zoom * 100)}%
+            </span>
+            <Button
+              aria-label="Zoom out"
+              className="size-9 rounded-none border-primary-foreground/30 bg-transparent p-0 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              disabled={zoom <= minZoom}
+              onClick={() => stepZoom(-1)}
+              title="Zoom out"
+              variant="outline"
+            >
+              <ZoomOut aria-hidden="true" className="size-4" />
+            </Button>
+            <Button
+              aria-label="Zoom in"
+              className="size-9 rounded-none border-primary-foreground/30 bg-transparent p-0 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              disabled={zoom >= maxZoom}
+              onClick={() => stepZoom(1)}
+              title="Zoom in"
+              variant="outline"
+            >
+              <ZoomIn aria-hidden="true" className="size-4" />
+            </Button>
           </div>
           <DialogDescription className="sr-only">
             Full-screen project screenshot. Click the image to zoom in or out, then scroll to move
@@ -696,7 +691,7 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
             }}
           >
             <div
-              className={`h-full bg-muted ${
+              className={`h-full ${
                 zoom > minZoom
                   ? "flex overflow-auto [align-items:safe_center] [justify-content:safe_center]"
                   : "overflow-hidden"
@@ -705,7 +700,11 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
             >
               <img
                 alt={selectedImage?.alt ?? project.title}
-                className={`bg-muted ${zoom > minZoom ? "max-w-none cursor-zoom-out" : "h-full w-full cursor-zoom-in object-contain"}`}
+                className={
+                  zoom > minZoom
+                    ? "max-w-none cursor-zoom-out"
+                    : "h-full w-full cursor-zoom-in object-contain"
+                }
                 onClick={() => setZoom((level) => (level > minZoom ? 1 : 2))}
                 src={selectedImage?.src}
                 style={zoom > minZoom ? { width: `${zoom * 100}%` } : undefined}
@@ -715,7 +714,7 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
               <>
                 <Button
                   aria-label="Previous enlarged screenshot"
-                  className="absolute top-1/2 left-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
+                  className="absolute top-1/2 left-3 size-11 -translate-y-1/2 rounded-none border border-primary-foreground/30 bg-primary/80 p-0 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                   onClick={() => moveLightbox(-1)}
                   variant="outline"
                 >
@@ -723,13 +722,23 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
                 </Button>
                 <Button
                   aria-label="Next enlarged screenshot"
-                  className="absolute top-1/2 right-3 size-11 -translate-y-1/2 rounded-none border border-border bg-background/90 p-0 hover:bg-secondary"
+                  className="absolute top-1/2 right-3 size-11 -translate-y-1/2 rounded-none border border-primary-foreground/30 bg-primary/80 p-0 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                   onClick={() => moveLightbox(1)}
                   variant="outline"
                 >
                   <ArrowRight aria-hidden="true" />
                 </Button>
               </>
+            ) : null}
+          </div>
+          <div className="shrink-0">
+            <DialogTitle className="display-type text-lg font-semibold sm:text-xl">
+              {project.images[lightboxSlide]?.title ?? project.title}
+            </DialogTitle>
+            {project.images[lightboxSlide]?.description ? (
+              <p className="mt-1 text-sm text-primary-foreground/70">
+                {project.images[lightboxSlide].description}
+              </p>
             ) : null}
           </div>
         </DialogContent>
