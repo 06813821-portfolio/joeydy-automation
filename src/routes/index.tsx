@@ -544,13 +544,13 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
               >
                 <img
                   alt={image.alt}
-                  className="h-52 w-full bg-muted object-contain p-2 sm:h-64 md:h-72"
+                  className="mx-auto my-3 h-64 w-auto max-w-[92%] cursor-pointer border border-border bg-background object-contain shadow-sm transition-transform duration-300 group-hover/image:scale-[1.015] sm:h-80 md:h-96 md:max-w-[78%]"
                   height={796}
                   loading="lazy"
                   src={image.src}
                   width={1500}
                 />
-                <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
+                <span className="pointer-events-none absolute top-1/2 left-1/2 inline-flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-background/90 text-foreground opacity-0 transition-opacity group-hover/image:opacity-100 group-focus-visible/image:opacity-100">
                   <Expand aria-hidden="true" className="size-4" />
                 </span>
               </Button>
@@ -566,13 +566,13 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
           >
             <img
               alt={firstImage.alt}
-              className="h-52 w-full bg-muted object-contain p-2 sm:h-64 md:h-72"
+              className="mx-auto my-3 h-64 w-auto max-w-[92%] cursor-pointer border border-border bg-background object-contain shadow-sm transition-transform duration-300 group-hover/image:scale-[1.015] sm:h-80 md:h-96 md:max-w-[78%]"
               height={796}
               loading="lazy"
               src={firstImage.src}
               width={1500}
             />
-            <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center bg-background/90 text-foreground transition-colors group-hover/image:bg-secondary">
+            <span className="pointer-events-none absolute top-1/2 left-1/2 inline-flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-background/90 text-foreground opacity-0 transition-opacity group-hover/image:opacity-100 group-focus-visible/image:opacity-100">
               <ZoomIn aria-hidden="true" className="size-4" />
             </span>
           </Button>
@@ -580,7 +580,7 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
 
         {isCarousel ? (
           <>
-            <div className="pointer-events-none absolute inset-y-0 right-3 left-3 flex items-center justify-between">
+            <div className="pointer-events-none absolute inset-y-0 right-3 left-3 flex md:right-[6%] md:left-[6%] items-center justify-between">
               <Button
                 aria-label={`Previous ${project.title} screenshot`}
                 className="pointer-events-auto hidden size-11 rounded-none border border-border bg-background/90 p-0 shadow-none hover:bg-secondary sm:inline-flex"
@@ -622,19 +622,11 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
           </>
         ) : null}
         {project.images[currentSlide]?.title ? (
-          <div className="border-t border-border px-6 pt-1 pb-5 text-center md:px-8">
+          <div className="px-6 pt-0 pb-5 text-center md:px-8">
             <p className="display-type text-lg font-semibold">{project.images[currentSlide]?.title}</p>
             <p className="mx-auto mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {project.images[currentSlide]?.description}
             </p>
-            <Button
-              className="mt-3 h-9 rounded-none border-2 border-secondary-foreground px-4 text-xs font-semibold uppercase tracking-wide shadow-none hover:bg-secondary"
-              onClick={() => openLightbox(currentSlide)}
-              variant="outline"
-            >
-              <Expand aria-hidden="true" className="size-4" />
-              View Full Size
-            </Button>
           </div>
         ) : null}
       </div>
