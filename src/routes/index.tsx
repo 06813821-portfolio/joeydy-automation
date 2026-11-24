@@ -240,16 +240,16 @@ export const dentalCaseStudy: CaseStudy = {
     "Created a complete patient journey automation system that reduces manual follow-up, improves appointment attendance, and streamlines review collection.",
 };
 
-export const anchorPointCaseStudy: CaseStudy = {
-  id: "anchorpoint-case-study",
+export const propertyCaseStudy: CaseStudy = {
+  id: "property-case-study",
   label: "Case study 02 · Property services",
-  title: "AnchorPoint Property Lead Generation & Customer Journey System",
+  title: "Property Lead Generation & Customer Journey System",
   summary:
-    "A full lead-to-member journey for a rental maintenance business: landing page, lead nurture, strategy-call booking, and automated payment onboarding.",
+    "A complete GoHighLevel implementation featuring lead capture, automated nurturing, booking automation, onboarding sequences, payment workflows, and reusable automation deployment.",
   description:
-    "Built the complete customer journey for AnchorPoint Rentals & Upkeep in GoHighLevel — from the first landing-page visit to a paid, onboarded maintenance-plan member.",
+    "Designed and implemented a complete property lead generation and customer journey system in GoHighLevel, including lead capture, automated nurturing, booking automation, onboarding sequences, payment workflows, and reusable automation deployment.",
   overview:
-    "AnchorPoint needed one connected system to attract rental property owners, nurture them toward a strategy call, and turn bookings into paying maintenance-plan members without manual follow-up.",
+    "Built a complete GoHighLevel automation system for a property services business, covering lead generation, lead nurturing, appointment scheduling, customer onboarding, payment workflows, and customer journey automation from first inquiry through long-term engagement.",
   challenges: [
     "Turn property-owner interest into qualified leads",
     "Follow up consistently without manual emails",
@@ -316,7 +316,7 @@ export const anchorPointCaseStudy: CaseStudy = {
   ],
 };
 
-export const caseStudies: CaseStudy[] = [dentalCaseStudy, anchorPointCaseStudy];
+export const caseStudies: CaseStudy[] = [dentalCaseStudy, propertyCaseStudy];
 
 
 function CaseStudyArticle({ c }: { c: CaseStudy }) {
