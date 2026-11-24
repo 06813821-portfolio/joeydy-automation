@@ -226,7 +226,7 @@ export const dentalCaseStudy: CaseStudy = {
   ],
   skills: [
     "Workflow Automation",
-    "CRM Setup",
+    "Contact & Pipeline Management",
     "Calendar Configuration",
     "Email Automation",
     "SMS Automation",
@@ -544,7 +544,7 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
               >
                 <img
                   alt={image.alt}
-                  className="aspect-video w-full bg-muted object-contain"
+                  className="h-52 w-full bg-muted object-contain p-2 sm:h-64 md:h-72"
                   height={796}
                   loading="lazy"
                   src={image.src}
@@ -566,7 +566,7 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
           >
             <img
               alt={firstImage.alt}
-              className="aspect-video w-full bg-muted object-contain"
+              className="h-52 w-full bg-muted object-contain p-2 sm:h-64 md:h-72"
               height={796}
               loading="lazy"
               src={firstImage.src}
@@ -627,6 +627,14 @@ function ProjectGallery({ project }: { project: { title: string; images: Showcas
             <p className="mx-auto mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {project.images[currentSlide]?.description}
             </p>
+            <Button
+              className="mt-3 h-9 rounded-none border-2 border-secondary-foreground px-4 text-xs font-semibold uppercase tracking-wide shadow-none hover:bg-secondary"
+              onClick={() => openLightbox(currentSlide)}
+              variant="outline"
+            >
+              <Expand aria-hidden="true" className="size-4" />
+              View Full Size
+            </Button>
           </div>
         ) : null}
       </div>
