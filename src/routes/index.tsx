@@ -121,68 +121,6 @@ const services = [
   },
 ];
 
-export const projects = [
-  {
-    number: "01",
-    title: "Lead Generation Funnel",
-    category: "Landing Page • Lead Capture • Conversion Optimization",
-    group: "funnels",
-    description:
-      "A maintenance-plan lead magnet landing page built to explain the offer clearly and turn property-owner interest into new leads.",
-    images: [
-      { src: landingShot1.url, alt: "AnchorPoint maintenance-plan landing page hero" },
-      { src: landingShot2.url, alt: "Maintenance plan service benefits section" },
-      { src: landingShot3.url, alt: "Maintenance plan customer testimonials section" },
-      { src: landingShot4.url, alt: "Second customer testimonial and property image" },
-      { src: landingShot5.url, alt: "Maintenance plan offer and call to action" },
-      { src: landingShot6.url, alt: "Offer recap and footer section" },
-      { src: landingShot7.url, alt: "Maintenance plan sign-up form" },
-      { src: landingShot8.url, alt: "Maintenance plan thank-you page" },
-    ],
-  },
-  {
-    number: "02",
-    title: "Email Nurture & Lead Follow-Up Automation",
-    category: "Email Marketing • Lead Nurturing • Customer Engagement",
-    group: "ghl",
-    description:
-      "A multi-day follow-up sequence that welcomes new leads, sends helpful nurture emails, and branches based on booking activity.",
-    images: [
-      { src: nurtureShot1.url, alt: "Lead nurture workflow from form submission to first follow-up" },
-      { src: nurtureShot2.url, alt: "Lead nurture workflow with timed email follow-ups" },
-      { src: nurtureShot3.url, alt: "Lead nurture sequence with day-six email and wait steps" },
-      { src: nurtureShot4.url, alt: "Lead nurture sequence with booking-condition branches" },
-      { src: nurtureShot5.url, alt: "Lead nurture workflow with re-engagement follow-up" },
-      { src: nurtureShot6.url, alt: "Final nurture email and booking-condition steps" },
-    ],
-  },
-  {
-    number: "03",
-    title: "Booking & Appointment Automation System",
-    category: "Calendar Integration • Automated Reminders • Lead Qualification",
-    group: "ghl",
-    description:
-      "An appointment workflow that records new strategy-call bookings and applies a dedicated tag for a clean CRM handoff.",
-    images: [{ src: bookingOverview.url, alt: "Rental strategy call booking workflow" }],
-  },
-  {
-    number: "04",
-    title: "Automated Payment & Customer Onboarding Workflow",
-    category: "Payment Processing • Customer Journey • Workflow Automation",
-    group: "ghl",
-    description:
-      "A successful-payment flow that sends a confirmation and welcome email, then updates the customer record with a member tag.",
-    images: [{ src: paymentOverview.url, alt: "Rental maintenance payment workflow" }],
-  },
-];
-
-type Project = (typeof projects)[number];
-
-export const projectGroups = [
-  { id: "ghl", title: "GoHighLevel Automation Projects" },
-  { id: "funnels", title: "Landing Pages & Funnels" },
-] as const;
-
 export const skillBadges = [
   "GoHighLevel",
   "Workflow Automation",
@@ -195,33 +133,56 @@ export const skillBadges = [
   "Reputation Management",
 ];
 
-export const dentalCaseStudy = {
-  images: [
-    { src: dentalShot1.url, alt: "Bright Smile website hero with Book an Appointment button" },
-    { src: dentalShot2.url, alt: "Website hero with clinic highlights bar" },
-    { src: dentalShot3.url, alt: "Treatments overview grid" },
-    { src: dentalShot4.url, alt: "General Dentistry treatment details popup" },
-    { src: dentalShot5.url, alt: "Treatments section with Explore Treatment buttons" },
-    { src: dentalShot6.url, alt: "Dental Implants treatment details popup" },
-    { src: dentalShot7.url, alt: "Why Choose Us section with clinic video" },
-    { src: dentalShot8.url, alt: "Meet Our Dentists team section" },
-    { src: dentalShot9.url, alt: "Patient testimonials section" },
-    { src: dentalShot10.url, alt: "Closing call-to-action and footer" },
-    { src: dentalShot11.url, alt: "Booking calendar — choose a date" },
-    { src: dentalShot12.url, alt: "Booking calendar — choose a dentist" },
-    { src: dentalShot13.url, alt: "Booking form — enter patient details" },
-    { src: dentalShot14.url, alt: "Booking confirmation screen" },
-    { src: dentalShot15.url, alt: "Review funnel — rate your experience" },
-    { src: dentalShot16.url, alt: "Review funnel — happy patients sent to Google review" },
-    { src: dentalShot17.url, alt: "Review funnel — private feedback form for unhappy patients" },
-    { src: dentalShot18.url, alt: "Review funnel — thank-you message" },
-    { src: dentalShot19.url, alt: "Workflow: booking confirmation" },
-    { src: dentalShot20.url, alt: "Workflow: 24-hour appointment reminder" },
-    { src: dentalShot21.url, alt: "Workflow: 24-hour reminder branches" },
-    { src: dentalShot22.url, alt: "Workflow: 2-hour appointment reminder" },
-    { src: dentalShot23.url, alt: "Workflow: no-show recovery" },
-    { src: dentalShot24.url, alt: "Workflow: cancellation and reschedule" },
-    { src: dentalShot25.url, alt: "Workflow: reputation management funnel" },
+export type ShowcaseImage = { src: string; alt: string; title?: string; description?: string };
+
+export type CaseStudy = {
+  id: string;
+  label: string;
+  title: string;
+  summary: string;
+  description: string;
+  overview: string;
+  challenges: string[];
+  solution: string;
+  implementation: string[];
+  features: string[];
+  skills: string[];
+  outcome: string;
+  automations: ShowcaseImage[];
+  landingPages: ShowcaseImage[];
+};
+
+export const dentalCaseStudy: CaseStudy = {
+  id: "dental-case-study",
+  label: "Case study 01 · Healthcare",
+  automations: [
+    { src: dentalShot19.url, alt: "Booking confirmation", title: "Booking confirmation", description: "Sends email and SMS confirmations the moment an appointment is booked." },
+    { src: dentalShot20.url, alt: "24-hour reminder", title: "24-hour reminder", description: "Reminds patients a day before their visit to cut no-shows." },
+    { src: dentalShot21.url, alt: "24-hour reminder branches", title: "24-hour reminder branches", description: "Branches on patient replies to confirm or reschedule." },
+    { src: dentalShot22.url, alt: "2-hour reminder", title: "2-hour reminder", description: "Final nudge shortly before the appointment." },
+    { src: dentalShot23.url, alt: "No-show recovery", title: "No-show recovery", description: "Follows up with missed appointments and invites a rebooking." },
+    { src: dentalShot24.url, alt: "Cancellation & reschedule", title: "Cancellation & reschedule", description: "Handles cancellations and sends a reschedule link automatically." },
+    { src: dentalShot25.url, alt: "Reputation management", title: "Reputation management", description: "Requests reviews after visits and routes feedback by rating." },
+  ],
+  landingPages: [
+    { src: dentalShot1.url, alt: "Website hero", title: "Website hero", description: "Bright Smile homepage with a clear Book an Appointment call to action." },
+    { src: dentalShot2.url, alt: "Clinic highlights", title: "Clinic highlights", description: "Trust bar showing hours, experience, and patient care promises." },
+    { src: dentalShot3.url, alt: "Treatments overview", title: "Treatments overview", description: "Grid of services so patients find the right treatment fast." },
+    { src: dentalShot4.url, alt: "General Dentistry details", title: "General Dentistry details", description: "Popup explaining the treatment before patients book." },
+    { src: dentalShot5.url, alt: "Treatment explorer", title: "Treatment explorer", description: "Explore Treatment buttons guiding visitors deeper into services." },
+    { src: dentalShot6.url, alt: "Dental Implants details", title: "Dental Implants details", description: "Treatment popup with benefits and a booking prompt." },
+    { src: dentalShot7.url, alt: "Why choose us", title: "Why choose us", description: "Clinic video and reasons that build trust before booking." },
+    { src: dentalShot8.url, alt: "Meet our dentists", title: "Meet our dentists", description: "Team profiles that put a face to the practice." },
+    { src: dentalShot9.url, alt: "Patient testimonials", title: "Patient testimonials", description: "Social proof from real patients." },
+    { src: dentalShot10.url, alt: "Closing call to action", title: "Closing call to action", description: "Final booking prompt and footer contact details." },
+    { src: dentalShot11.url, alt: "Booking: choose a date", title: "Booking: choose a date", description: "Calendar step connected to the clinic schedule." },
+    { src: dentalShot12.url, alt: "Booking: choose a dentist", title: "Booking: choose a dentist", description: "Patients pick their preferred dentist and time." },
+    { src: dentalShot13.url, alt: "Booking: patient details", title: "Booking: patient details", description: "Booking form that creates the contact in the CRM." },
+    { src: dentalShot14.url, alt: "Booking confirmed", title: "Booking confirmed", description: "Confirmation screen that triggers the follow-up workflows." },
+    { src: dentalShot15.url, alt: "Review funnel: rate your visit", title: "Review funnel: rate your visit", description: "Patients rate their experience after the appointment." },
+    { src: dentalShot16.url, alt: "Review funnel: Google review", title: "Review funnel: Google review", description: "Happy patients are routed to leave a Google review." },
+    { src: dentalShot17.url, alt: "Review funnel: private feedback", title: "Review funnel: private feedback", description: "Unhappy patients share feedback privately with the clinic." },
+    { src: dentalShot18.url, alt: "Review funnel: thank you", title: "Review funnel: thank you", description: "Closing message that completes the feedback journey." },
   ],
   title: "Dental Clinic Appointment & Reputation Management System",
   summary:
@@ -279,28 +240,103 @@ export const dentalCaseStudy = {
     "Created a complete patient journey automation system that reduces manual follow-up, improves appointment attendance, and streamlines review collection.",
 };
 
-function DentalCaseStudy() {
-  const c = dentalCaseStudy;
+export const anchorPointCaseStudy: CaseStudy = {
+  id: "anchorpoint-case-study",
+  label: "Case study 02 · Property services",
+  title: "AnchorPoint Property Lead Generation & Customer Journey System",
+  summary:
+    "A full lead-to-member journey for a rental maintenance business: landing page, lead nurture, strategy-call booking, and automated payment onboarding.",
+  description:
+    "Built the complete customer journey for AnchorPoint Rentals & Upkeep in GoHighLevel — from the first landing-page visit to a paid, onboarded maintenance-plan member.",
+  overview:
+    "AnchorPoint needed one connected system to attract rental property owners, nurture them toward a strategy call, and turn bookings into paying maintenance-plan members without manual follow-up.",
+  challenges: [
+    "Turn property-owner interest into qualified leads",
+    "Follow up consistently without manual emails",
+    "Move leads from interest to a booked strategy call",
+    "Onboard paying customers automatically",
+  ],
+  solution:
+    "Designed a GoHighLevel funnel and workflow system where every step — sign-up, nurture, booking, and payment — automatically triggers the next.",
+  implementation: [
+    "Lead Magnet Landing Page",
+    "Lead Capture Form",
+    "Thank-You Page",
+    "Multi-Day Email Nurture",
+    "Booking-Based Branching",
+    "Strategy Call Calendar",
+    "Booking Tagging & CRM Handoff",
+    "Payment Confirmation Workflow",
+    "Member Onboarding & Tagging",
+  ],
+  features: [
+    "Conversion-Focused Landing Page",
+    "Lead Capture & Tagging",
+    "Welcome Email Automation",
+    "Timed Nurture Sequence",
+    "Re-engagement Follow-Up",
+    "Booking Condition Branches",
+    "Strategy Call Booking",
+    "Payment Confirmation Email",
+    "Welcome & Onboarding Email",
+    "Member Tagging in CRM",
+  ],
+  skills: [
+    "Funnel Building",
+    "Landing Page Design",
+    "Form Building",
+    "Email Automation",
+    "Workflow Automation",
+    "Calendar Configuration",
+    "Pipeline & Tagging",
+    "Payment Integration",
+    "Customer Onboarding",
+  ],
+  outcome:
+    "Created a hands-off customer journey that captures leads, nurtures them to a booked call, and onboards paying members automatically.",
+  automations: [
+    { src: nurtureShot1.url, alt: "Lead nurture: form to first email", title: "Lead nurture: form to first email", description: "New sign-ups get tagged and receive an instant welcome email." },
+    { src: nurtureShot2.url, alt: "Lead nurture: timed follow-ups", title: "Lead nurture: timed follow-ups", description: "Spaced emails keep the maintenance offer top of mind." },
+    { src: nurtureShot3.url, alt: "Lead nurture: day-six email", title: "Lead nurture: day-six email", description: "Mid-sequence value email with wait steps." },
+    { src: nurtureShot4.url, alt: "Lead nurture: booking check", title: "Lead nurture: booking check", description: "Branches based on whether the lead booked a call." },
+    { src: nurtureShot5.url, alt: "Lead nurture: re-engagement", title: "Lead nurture: re-engagement", description: "Follow-up for leads who have not taken the next step." },
+    { src: nurtureShot6.url, alt: "Lead nurture: final email", title: "Lead nurture: final email", description: "Closing email and booking condition before the sequence ends." },
+    { src: bookingOverview.url, alt: "Strategy call booking", title: "Strategy call booking", description: "Records new strategy-call bookings and tags the contact for handoff." },
+    { src: paymentOverview.url, alt: "Payment & onboarding", title: "Payment & onboarding", description: "Confirms successful payments, sends a welcome email, and tags new members." },
+  ],
+  landingPages: [
+    { src: landingShot1.url, alt: "Landing page hero", title: "Landing page hero", description: "Maintenance-plan offer headline aimed at rental property owners." },
+    { src: landingShot2.url, alt: "Service benefits", title: "Service benefits", description: "What the plan covers, in plain language." },
+    { src: landingShot3.url, alt: "Customer testimonials", title: "Customer testimonials", description: "Owner reviews that build trust in the service." },
+    { src: landingShot4.url, alt: "Property testimonial", title: "Property testimonial", description: "Second testimonial paired with a property photo." },
+    { src: landingShot5.url, alt: "Offer & call to action", title: "Offer & call to action", description: "The plan offer with a clear sign-up button." },
+    { src: landingShot6.url, alt: "Offer recap & footer", title: "Offer recap & footer", description: "Summary of the offer and contact details." },
+    { src: landingShot7.url, alt: "Sign-up form", title: "Sign-up form", description: "Lead capture form that starts the nurture workflow." },
+    { src: landingShot8.url, alt: "Thank-you page", title: "Thank-you page", description: "Confirms the sign-up and sets expectations for next steps." },
+  ],
+};
+
+export const caseStudies: CaseStudy[] = [dentalCaseStudy, anchorPointCaseStudy];
+
+
+function CaseStudyArticle({ c }: { c: CaseStudy }) {
   return (
     <article
-      aria-labelledby="dental-title"
+      aria-labelledby={`${c.id}-title`}
       className="anchor-offset border-2 border-secondary-foreground bg-background text-foreground"
-      id="dental-case-study"
+      id={c.id}
     >
       <div className="border-b-2 border-secondary-foreground bg-primary p-6 text-primary-foreground md:p-10">
         <p className="section-kicker mb-4 flex items-center gap-2 text-secondary">
           <span aria-hidden="true" className="inline-block size-2.5 bg-accent" />
-          Flagship case study · GoHighLevel
+          {c.label}
         </p>
-        <h3 className="display-type max-w-4xl text-3xl font-semibold leading-tight md:text-5xl" id="dental-title">
+        <h3 className="display-type max-w-4xl text-3xl font-semibold leading-tight md:text-5xl" id={`${c.id}-title`}>
           {c.title}
         </h3>
         <p className="mt-5 max-w-3xl leading-relaxed text-primary-foreground/75 md:text-lg">
           {c.description}
         </p>
-      </div>
-      <div className="border-b-2 border-secondary-foreground">
-        <ProjectGallery project={c} />
       </div>
       <div className="grid gap-px bg-border md:grid-cols-2">
         <div className="bg-background p-6 md:p-8">
@@ -361,23 +397,44 @@ function DentalCaseStudy() {
           <p className="font-semibold leading-relaxed">{c.outcome}</p>
         </div>
       </div>
+      <CaseGallery
+        description="The workflows that run this system behind the scenes."
+        heading="Automation gallery"
+        images={c.automations}
+        title={`${c.title} — automation`}
+      />
+      <CaseGallery
+        description="The pages and funnel steps customers move through."
+        heading="Landing page & funnel gallery"
+        images={c.landingPages}
+        title={`${c.title} — landing pages`}
+      />
     </article>
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function CaseGallery({
+  heading,
+  description,
+  title,
+  images,
+}: {
+  heading: string;
+  description: string;
+  title: string;
+  images: ShowcaseImage[];
+}) {
   return (
-    <article className="grid min-w-0 border-2 border-secondary-foreground bg-background text-foreground lg:grid-cols-[1.35fr_0.65fr]">
-      <ProjectGallery project={project} />
-      <div className="flex min-w-0 flex-col justify-center p-5 md:p-6">
-        <p className="section-kicker mb-3 text-accent-foreground">
-          Project <span className="px-1 text-muted-foreground">/</span> {project.number}
-        </p>
-        <h3 className="display-type text-2xl font-semibold leading-tight">{project.title}</h3>
-        <p className="section-kicker mt-3 text-muted-foreground">{project.category}</p>
-        <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">{project.description}</p>
+    <section className="border-t-2 border-secondary-foreground" aria-label={heading}>
+      <div className="flex flex-wrap items-baseline justify-between gap-2 bg-primary px-6 py-4 text-primary-foreground md:px-8">
+        <h4 className="section-kicker flex items-center gap-2 text-secondary">
+          <span aria-hidden="true" className="inline-block size-2.5 bg-accent" />
+          {heading}
+        </h4>
+        <p className="text-sm text-primary-foreground/70">{description}</p>
       </div>
-    </article>
+      <ProjectGallery project={{ title, images }} />
+    </section>
   );
 }
 
@@ -386,7 +443,7 @@ const maxZoom = 3;
 const zoomLevels: number[] = [minZoom, 1.5, 2, maxZoom];
 const screenshotAspect = 1500 / 796;
 
-function ProjectGallery({ project }: { project: Pick<Project, "title" | "images"> }) {
+function ProjectGallery({ project }: { project: { title: string; images: ShowcaseImage[] } }) {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const lightboxRef = React.useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);
@@ -564,6 +621,14 @@ function ProjectGallery({ project }: { project: Pick<Project, "title" | "images"
             </div>
           </>
         ) : null}
+        {project.images[currentSlide]?.title ? (
+          <div className="border-t border-border px-6 pt-1 pb-5 text-center md:px-8">
+            <p className="display-type text-lg font-semibold">{project.images[currentSlide]?.title}</p>
+            <p className="mx-auto mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              {project.images[currentSlide]?.description}
+            </p>
+          </div>
+        ) : null}
       </div>
 
       <Dialog
@@ -579,7 +644,7 @@ function ProjectGallery({ project }: { project: Pick<Project, "title" | "images"
         >
           <div className="flex min-w-0 items-center justify-between gap-4 pr-8">
             <DialogTitle className="display-type truncate text-lg font-semibold sm:text-xl">
-              {project.title}
+              {project.images[lightboxSlide]?.title ?? project.title}
             </DialogTitle>
             <div className="flex shrink-0 items-center gap-2">
               {isCarousel ? (
@@ -775,23 +840,28 @@ export function Index() {
 
       <section aria-labelledby="featured-title" className="anchor-offset bg-background" id="featured">
         <div className="site-wrap pb-16 md:pb-24">
-          <p className="section-kicker mb-4 text-accent-foreground">Featured GoHighLevel Projects</p>
-          <h2 className="sr-only" id="featured-title">Featured GoHighLevel Projects</h2>
-          <a
-            className="group grid gap-6 border-2 border-foreground bg-secondary p-6 text-secondary-foreground transition-colors hover:bg-accent md:grid-cols-[1fr_auto] md:items-center md:p-10"
-            href="#dental-case-study"
-          >
-            <div>
-              <p className="section-kicker mb-3">Flagship case study</p>
-              <h3 className="display-type text-3xl font-semibold leading-tight md:text-4xl">
-                {dentalCaseStudy.title}
-              </h3>
-              <p className="mt-4 max-w-3xl leading-relaxed">{dentalCaseStudy.summary}</p>
-            </div>
-            <span className="inline-flex items-center gap-2 text-sm font-bold uppercase">
-              View case study <ArrowDownRight aria-hidden="true" className="size-5 transition-transform group-hover:translate-x-1" />
-            </span>
-          </a>
+          <p className="section-kicker mb-4 text-accent-foreground">Featured Case Studies</p>
+          <h2 className="sr-only" id="featured-title">Featured Case Studies</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {caseStudies.map((study) => (
+              <a
+                className="group flex flex-col gap-6 border-2 border-foreground bg-secondary p-6 text-secondary-foreground transition-colors hover:bg-accent md:p-8"
+                href={`#${study.id}`}
+                key={study.id}
+              >
+                <div className="flex-1">
+                  <p className="section-kicker mb-3">{study.label}</p>
+                  <h3 className="display-type text-2xl font-semibold leading-tight md:text-3xl">
+                    {study.title}
+                  </h3>
+                  <p className="mt-4 leading-relaxed">{study.summary}</p>
+                </div>
+                <span className="inline-flex items-center gap-2 text-sm font-bold uppercase">
+                  View case study <ArrowDownRight aria-hidden="true" className="size-5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -855,23 +925,13 @@ export function Index() {
               </h2>
             </div>
             <p className="max-w-sm text-sm leading-relaxed md:text-base">
-              GoHighLevel automation systems, landing pages, and funnels — led by a full dental clinic patient-journey build.
+              Two complete client systems — automation, landing pages, funnels, and the customer journey that ties them together.
             </p>
           </div>
 
           <div className="grid gap-12">
-            {projectGroups.map((group) => (
-              <div className="grid gap-6" key={group.id}>
-                <h3 className="display-type border-b-2 border-secondary-foreground pb-3 text-2xl font-semibold md:text-3xl">
-                  {group.title}
-                </h3>
-                {group.id === "ghl" ? <DentalCaseStudy /> : null}
-                {projects
-                  .filter((project) => project.group === group.id)
-                  .map((project) => (
-                    <ProjectCard key={project.number} project={project} />
-                  ))}
-              </div>
+            {caseStudies.map((study) => (
+              <CaseStudyArticle c={study} key={study.id} />
             ))}
           </div>
         </div>

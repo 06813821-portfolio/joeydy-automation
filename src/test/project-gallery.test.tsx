@@ -1,54 +1,31 @@
 import { describe, expect, it } from "vitest";
 
-import { projects } from "@/routes/index";
+import { anchorPointCaseStudy, caseStudies, dentalCaseStudy } from "@/routes/index";
 
-// Carousels only make sense where there is more than one screenshot; single-shot
-// projects render one clickable image that opens the full-screen zoomable lightbox.
-describe("Project showcase screenshots", () => {
-  const byNumber = (number: string) => projects.find((project) => project.number === number);
-
-  it("gives the multi-screenshot projects a carousel", () => {
-    expect(byNumber("01")?.images.length).toBe(8);
-    expect(byNumber("02")?.images.length).toBe(6);
-  });
-
-  it("keeps the single-screenshot projects to one image", () => {
-    expect(byNumber("03")?.images.length).toBe(1);
-    expect(byNumber("04")?.images.length).toBe(1);
-  });
-
-  it("gives every screenshot a source and a description", () => {
-    for (const project of projects) {
-      for (const image of project.images) {
-        expect(image.src.length).toBeGreaterThan(0);
-        expect(image.alt.length).toBeGreaterThan(0);
-      }
-    }
-  });
-
-  // Each card heading is client-specified copy: title first, subtitle of services underneath.
-  it("shows the service-focused title and subtitle on every project card", () => {
-    expect(projects.map((project) => [project.title, project.category])).toEqual([
-      ["Lead Generation Funnel", "Landing Page • Lead Capture • Conversion Optimization"],
-      [
-        "Email Nurture & Lead Follow-Up Automation",
-        "Email Marketing • Lead Nurturing • Customer Engagement",
-      ],
-      [
-        "Booking & Appointment Automation System",
-        "Calendar Integration • Automated Reminders • Lead Qualification",
-      ],
-      [
-        "Automated Payment & Customer Onboarding Workflow",
-        "Payment Processing • Customer Journey • Workflow Automation",
-      ],
+describe("Featured case studies", () => {
+  it("keeps exactly the dental and AnchorPoint case studies, in that order", () => {
+    expect(caseStudies.map((c) => c.title)).toEqual([
+      "Dental Clinic Appointment & Reputation Management System",
+      "AnchorPoint Property Lead Generation & Customer Journey System",
     ]);
   });
-});
 
-describe("Dental case study gallery", () => {
-  it("shows all 25 uploaded dental screenshots", async () => {
-    const { dentalCaseStudy } = await import("@/routes/index");
-    expect(dentalCaseStudy.images.length).toBe(25);
+  it("files the 25 dental screenshots as 7 workflows and 18 pages", () => {
+    expect(dentalCaseStudy.automations.length).toBe(7);
+    expect(dentalCaseStudy.landingPages.length).toBe(18);
+  });
+
+  it("files AnchorPoint's 8 workflows and 8 landing pages under its case study", () => {
+    expect(anchorPointCaseStudy.automations.length).toBe(8);
+    expect(anchorPointCaseStudy.landingPages.length).toBe(8);
+  });
+
+  it("gives every gallery screenshot a title and short description", () => {
+    for (const c of caseStudies) {
+      for (const image of [...c.automations, ...c.landingPages]) {
+        expect(image.title?.length).toBeGreaterThan(0);
+        expect(image.description?.length).toBeGreaterThan(0);
+      }
+    }
   });
 });
